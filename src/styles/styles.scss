@@ -1,0 +1,35 @@
+/* === 00 - SETTINGS */
+// used with preprocessors and contain font, colors definitions, etc.
+@import '00-settings/global.settings';
+
+/* === 01 - TOOLS === */
+// globally used mixins and functions. It’s important
+// not to output any CSS in the first 2 layers.
+
+
+/* === 02 - GENERIC === */
+// reset and/or normalize styles, box-sizing definition, etc.
+// This is the first layer which generates actual CSS.
+@import '02-generic/normalize.generic';
+@import '02-generic/box-model.generic';
+
+/* === 03 - ELEMENTS */
+// styling for bare HTML elements (like H1, A, etc.). These come with default
+// styling from the browser so we can redefine them here.
+@import '03-elements/body.elements';
+@import '03-elements/html.elements';
+@import '03-elements/a.elements';
+
+/* === 04 - OBJECTS */
+// class-based selectors which define undecorated design patterns.
+
+
+/* === 05 - COMPONENTS */
+// specific UI components. This is where majority of our work takes place and
+// our UI components are often composed of Objects and Components.
+@import '05-components/login.components';
+
+/* === 06 - TRUPMS */
+// trumps and helper classes with ability to override anything which goes
+// before in the triangle, eg. hide helper class.
+

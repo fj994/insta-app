@@ -1,0 +1,63 @@
+.login-form {
+  height: 28rem;
+  width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25vh;
+  border-radius: 10px;
+  -webkit-box-shadow: 7px 14px 31px -10px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 7px 14px 31px -10px rgba(0, 0, 0, 0.7);
+  box-shadow: 7px 14px 31px -10px rgba(0, 0, 0, 0.7);
+  padding-top: 1rem;
+
+  input {
+    width: 28rem;
+    height: 3.5rem;
+    border-radius: 10px;
+    border: none;
+    padding-left: 4.4rem;
+    background-repeat: no-repeat;
+    background-size: 1.5rem auto;
+    background-position: 1.5rem 1.1rem;
+    -webkit-box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+    box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+
+    &:focus {
+      outline: none;
+      border: 1px solid rgba($color: #4dd6ff, $alpha: 1);
+      background-position: 1.5rem calc(1.1rem - 1px);
+      -webkit-box-shadow: 5px 4px 14px -6px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 5px 4px 14px -6px rgba(0, 0, 0, 0.75);
+      box-shadow: 5px 4px 14px -6px rgba(0, 0, 0, 0.75);
+    }
+  }
+
+  button {
+    height: 4rem;
+    width: 28rem;
+    border-radius: 10px;
+    border: none;
+    -webkit-box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+    box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+  }
+
+  &__email-input {
+    background-image: url(/assets/icons/mail.png);
+  }
+
+  &__password-input {
+    background-image: url(/assets/icons/login.png);
+  }
+
+  &__input-container {
+    margin-left: 6rem;
+    margin-top: 3rem;
+  }
+
+  & .sign-up-link-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+}
