@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class SignUpComponent implements OnInit {
   signInForm: FormGroup;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private accountService: AccountService) { }
 
   ngOnInit() {
     this.initForm();
@@ -24,12 +25,6 @@ export class SignUpComponent implements OnInit {
   }
 
   formSubmit({ value }) {
-    console.log(value);
-
-    this.http.post('http://localhost:3000/', value, {responseType: 'text'}).subscribe(
-      response => {
-        console.log(response);
-      }
-    )
+    this.accountService.signUpPost(value);
   }
 }
