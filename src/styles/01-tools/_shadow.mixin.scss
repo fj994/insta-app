@@ -1,0 +1,17 @@
+@mixin shadow {
+  -webkit-box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 7px 6px 16px -6px rgba(0, 0, 0, 0.75);
+}
+
+@mixin shadow-min {
+  -webkit-box-shadow: 5px 4px 14px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 5px 4px 14px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 5px 4px 14px -6px rgba(0, 0, 0, 0.75);
+}
+
+@mixin container-shadow {
+  -webkit-box-shadow: 7px 14px 31px -10px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 7px 14px 31px -10px rgba(0, 0, 0, 0.7);
+  box-shadow: 7px 14px 31px -10px rgba(0, 0, 0, 0.7);
+}

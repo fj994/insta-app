@@ -1,0 +1,14 @@
+.wide-animated-button {
+    height: 4rem;
+    width: 28rem;
+    border-radius: 10px;
+    border: none;
+    @include shadow;
+    outline: none;
+
+    &:active, &:focus {
+        transform: scale(0.99);
+        @include shadow-min;
+        transition: all .2s;
+    }
+}

@@ -1,16 +1,16 @@
-<div class="login-form">
-    <form>
-        <div class="login-form__input-container">
-            <input type="email" placeholder="email" class="login-form__email-input">
+<div class="form-container form-container--login">
+    <form [formGroup]='logInForm'>
+        <div class="form-container__input-container">
+            <input type="email" placeholder="email" class="contact-details-input contact-details-input--email">
         </div>
-        <div class="login-form__input-container">
-            <input type="password" placeholder="password" class="login-form__password-input">
+        <div class="form-container__input-container">
+            <input type="password" placeholder="password" class="contact-details-input contact-details-input--password">
         </div>
-        <div class="login-form__input-container button">
-            <button class="sing-in">Sign in</button>
+        <div class="form-container__input-container">
+            <button class="wide-animated-button">Sign in</button>
         </div>
         <div class="sign-up-link-container">
-            Not signed in yet? <a href="#">Create account</a>
+            Don't have na account? <a [routerLink]="['signup']">Create account</a>
         </div>
     </form>
 </div>

@@ -1,0 +1,16 @@
+<div class="form-container form-container--sign-up">
+    <form [formGroup]="signInForm" (ngSubmit)="formSubmit(signInForm)">
+        <div class="form-container__input-container">
+            <input class="contact-details-input contact-details-input--email" formControlName="email" type="email" placeholder="email">
+        </div>
+        <div class="form-container__input-container">
+            <input class="contact-details-input contact-details-input--password" formControlName="password" type="password" placeholder="password">
+        </div>
+        <div class="form-container__input-container">
+            <input class="contact-details-input contact-details-input--password" formControlName="confirmPassword" type="password" placeholder="confirm password">
+        </div>
+        <div class="form-container__input-container">
+            <button class="wide-animated-button">Sign up</button>
+        </div>
+    </form>
+</div>

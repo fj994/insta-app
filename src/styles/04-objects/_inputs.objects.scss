@@ -1,0 +1,27 @@
+.contact-details-input {
+  width: 28rem;
+  height: 4rem;
+  border-radius: 10px;
+  border: none;
+  padding-left: 4.4rem;
+  background-repeat: no-repeat;
+  background-size: 1.5rem auto;
+  background-position: 1.5rem 1.3rem;
+  @include shadow;
+
+  &:focus {
+    outline: none;
+    border: 1px solid $blue-highlight-color;
+    background-position: 1.5rem calc(1.3rem - 1px);
+    @include shadow-min;
+    transition: all 0.2s;
+  }
+
+  &--email {
+    background-image: url(/assets/icons/mail.png);
+  }
+
+  &--password {
+    background-image: url(/assets/icons/login.png);
+  }
+}
