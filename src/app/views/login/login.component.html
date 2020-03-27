@@ -1,16 +1,16 @@
 <div class="form-container form-container--login">
-    <form [formGroup]='logInForm'>
+    <form [formGroup]='logInForm' (ngSubmit)="loginSubmit(logInForm)">
         <div class="form-container__input-container">
-            <input type="email" placeholder="email" class="contact-details-input contact-details-input--email">
+            <input formControlName="email" class="contact-details-input contact-details-input--email" type="email" placeholder="email">
         </div>
         <div class="form-container__input-container">
-            <input type="password" placeholder="password" class="contact-details-input contact-details-input--password">
+            <input formControlName="password" class="contact-details-input contact-details-input--password" type="password" placeholder="password">
         </div>
         <div class="form-container__input-container">
             <button class="wide-animated-button">Sign in</button>
         </div>
         <div class="sign-up-link-container">
-            Don't have na account? <a [routerLink]="['signup']">Create account</a>
+            Don't have na account? <a [routerLink]="['/signup']">Create account</a>
         </div>
     </form>
 </div>

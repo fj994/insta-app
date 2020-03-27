@@ -11,10 +11,14 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   signUpPost(newUser) {
-    this.http.post(this.apiPath, newUser, { responseType: 'text' }).subscribe(
+    this.http.post(`${this.apiPath}users`, newUser, { responseType: 'text' }).subscribe(
       response => {
         console.log(response);
       }
     )
+  }
+
+  loginPost(user) {
+    return this.http.post(`${this.apiPath}login`, user);
   }
 }

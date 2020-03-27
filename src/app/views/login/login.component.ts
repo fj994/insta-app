@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AccountService } from 'src/app/core/services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   logInForm: FormGroup;
 
-  constructor() { }
+  constructor(private accountService: AccountService, private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -21,4 +23,11 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  loginSubmit({ value }) {
+    this.accountService.loginPost(value).subscribe(
+      ({ login }: { login: boolean }) => {
+        login === true ? this.router.navigate(['/']) : alert('login failed!');
+      }
+    )
+  }
 }

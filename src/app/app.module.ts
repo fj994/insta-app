@@ -7,9 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
+import { NewsFeedComponent } from './views/news-feed/news-feed.component';
 
 const appRoutes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', component: NewsFeedComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent}
 ]
 
@@ -17,7 +19,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    NewsFeedComponent
   ],
   imports: [
     BrowserModule,
