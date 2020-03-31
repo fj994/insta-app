@@ -18,16 +18,20 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.logInForm = new FormGroup({
-      'email': new FormControl(null, Validators.email),
-      'password': new FormControl(null)
+      'email': new FormControl(null, [Validators.email, Validators.required]),
+      'password': new FormControl(null, Validators.required)
     })
   }
 
   loginSubmit({ value }) {
-    this.accountService.loginPost(value).subscribe(
-      ({ login }: { login: boolean }) => {
-        login === true ? this.router.navigate(['/']) : alert('login failed!');
-      }
-    )
+    if (value.password && value.username) {
+      this.accountService.loginPost(value).subscribe(
+        ({ login, message }: { login: boolean, message: string }) => {
+          login === true ? this.router.navigate(['/']) : alert(message);
+        }
+      )
+    } else {
+      alert('Username or password empty!');
+    }
   }
 }

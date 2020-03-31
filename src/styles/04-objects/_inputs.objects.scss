@@ -9,19 +9,27 @@
   background-position: 1.5rem 1.3rem;
   @include shadow;
 
-  &:focus {
+  &:focus, &.ng-invalid {
     outline: none;
-    border: 1px solid $blue-highlight-color;
     background-position: 1.5rem calc(1.3rem - 1px);
     @include shadow-min;
     transition: all 0.2s;
   }
 
+  &:focus {
+    border: 1px solid $blue-highlight-color;
+  }
+  
   &--email {
     background-image: url(/assets/icons/mail.png);
   }
 
   &--password {
     background-image: url(/assets/icons/login.png);
+  }
+
+  &.ng-invalid.ng-touched {
+    border: 1px solid rgba(255, 89, 48, 0.74);
+    background-position: 1.5rem calc(1.3rem - 2px);
   }
 }
