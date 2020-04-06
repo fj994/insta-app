@@ -10,11 +10,15 @@ import { LoginComponent } from './views/login/login.component';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { NewsFeedComponent } from './views/news-feed/news-feed.component';
 import { RefreshTokenInterceptor } from './core/auth/refresh-token-interceptor';
+import { AuthGuard } from './core/auth/auth.guard';
+import { authService } from './core/auth/auth.service';
+import { ProfileComponent } from './views/profile/profile.component';
 
 const appRoutes: Routes = [
-  {path: '', component: NewsFeedComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignUpComponent}
+  { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignUpComponent }
 ]
 
 @NgModule({
@@ -22,7 +26,8 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    NewsFeedComponent
+    NewsFeedComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +36,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem('authToken'),
-        whitelistedDomains: ['localhost:3000'],
-        blacklistedRoutes: []
+        tokenGetter: () =>
+          JSON.parse(localStorage.getItem('userData')) !== null ?
+            JSON.parse(localStorage.getItem('userData'))._token : null,
+        blacklistedRoutes: ['localhost:3000/login', 'localhost:3000/signup'],
+        whitelistedDomains: ['localhost:3000']
       }
     })
   ],

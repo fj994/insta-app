@@ -15,7 +15,7 @@ export class NewsFeedComponent implements OnInit {
   constructor(private authService: authService, private dataStorage: DataStorageService) { }
 
   ngOnInit() {
-    this.user = localStorage.getItem('authToken');
+    this.user = this.authService.user.value.token;
     
     this.dataStorage.getProfile().subscribe(
       res => console.log(res) 
@@ -23,4 +23,7 @@ export class NewsFeedComponent implements OnInit {
     
   }
 
+  logout() {
+    this.authService.logout();
+  }
 }

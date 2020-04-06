@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   logInForm: FormGroup;
 
-  constructor(private accountService: authService, private router: Router) { }
+  constructor(private authService: authService, private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -25,13 +25,15 @@ export class LoginComponent implements OnInit {
 
   loginSubmit({ value }) {
     if (value.password && value.email) {
-      this.accountService.login(value).subscribe(
-        ({ login, token }: { login: boolean, token: string }) => {
-          if (login && token) {
+      this.authService.login(value).subscribe(
+        ({ login, token, refreshToken }: { login: boolean, token: string, refreshToken: string }) => {
+          if (login && token && refreshToken) {
             this.router.navigate(['/']);
           }
         }, 
         errorRes => {
+          console.log(errorRes);
+          
           alert(errorRes.error.message);
         }
       )

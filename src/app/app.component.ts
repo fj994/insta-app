@@ -7,13 +7,12 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit{
   title = 'instagram-app';
-  constructor(private authService: authService, private router: Router) {}
   
+  constructor(private authService: authService, private router: Router) {}
+
   ngOnInit() {
-    if(!this.authService.isLoggedIn()) {
-      this.router.navigate(['/login']);
-    }
+    this.authService.autoLogin();
   }
 }

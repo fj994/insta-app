@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../models/user.model';
@@ -12,7 +12,7 @@ import { User } from '../models/user.model';
 })
 export class authService {
   apiPath: string = environment.apiPath;
-  user: User;
+  user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient, private router: Router, private jwt: JwtHelperService) { }
 
@@ -25,46 +25,64 @@ export class authService {
   }
 
   login(user) {
-    return this.http.post<{ email, login, token, refreshToken }>(`${this.apiPath}login`, user).pipe(
+    return this.http.post<{login, token, refreshToken}>(`${this.apiPath}login`, user, {headers: {skip: 'true'}}).pipe(
       catchError(errorRes => {
         return throwError(errorRes)
       }), tap(
         resData => {
-          this.handleAuthentication(resData.email, resData.login, resData.token, resData.refreshToken);
+          this.handleAuthentication(resData.token, resData.refreshToken);
         }
       )
     )
   }
 
-  refreshToken() {
-    const token = this.getToken();
-    return this.http.post<string>(`${this.apiPath}refresh`, token);
+  logout() {
+    this.user.next(null);
+    localStorage.setItem('userData', null);
+    this.router.navigate(['/login']);
   }
 
-  handleAuthentication(email: string, login: boolean, token: string, refreshToken: string) {
+  refreshToken() {
+    const tokens = {
+      token: this.user.value.token,
+      refreshToken: this.user.value.refreshToken
+    }
+    return this.http.post<{login: boolean, token: string}>(`${this.apiPath}refresh`, tokens, {headers: {skip: 'true'}});
+  }
+
+  handleAuthentication(token: string, refreshToken: string): void {
     const payload = this.jwt.decodeToken(token);
-    const expDate = this.jwt.getTokenExpirationDate(token)
     
-    this.user = new User(payload.email, payload.id, token, expDate);
-    
-    this.storeToken(token);
+    this.user.next(new User(payload.email, payload.id, token, refreshToken));
+    this.storeUserData(this.user.value);
     localStorage.setItem('refreshToken', refreshToken);
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     const token = localStorage.getItem('authToken');
     return !this.jwt.isTokenExpired(token);
   }
 
-  isTokenExpired() {
-    return this.jwt.isTokenExpired(localStorage.getItem('authToken'));
+  isTokenExpired(): boolean {
+    return this.jwt.isTokenExpired(this.user.value.token);
   }
 
-  storeToken(token: string): void  {
-    localStorage.setItem('authToken', token);
+  autoLogin(): void {
+    const user = JSON.parse(localStorage.getItem('userData'));
+    if(!user) {
+      return;
+    }
+    
+    this.user.next(new User(user.email, user.id, user._token, user._refreshToken));
   }
 
-  getToken(): string {
-    return localStorage.getItem('authToken');
+  storeUserData(user: User): void  {
+    localStorage.setItem('userData', JSON.stringify(user));
+  }
+
+  updateToken(newToken: string): void {
+    let user =  new User(this.user.value.email, this.user.value.id, newToken, this.user.value.refreshToken);
+    this.storeUserData(user);
+    this.user.next(user);
   }
 }
