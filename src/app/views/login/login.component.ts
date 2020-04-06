@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { authService } from 'src/app/core/services/auth.service';
+import { authService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   loginSubmit({ value }) {
     if (value.password && value.email) {
-      this.accountService.loginPost(value).subscribe(
+      this.accountService.login(value).subscribe(
         ({ login, token }: { login: boolean, token: string }) => {
           if (login && token) {
             this.router.navigate(['/']);
