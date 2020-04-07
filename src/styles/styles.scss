@@ -12,6 +12,7 @@
 // This is the first layer which generates actual CSS.
 @import '02-generic/normalize.generic';
 @import '02-generic/box-model.generic';
+@import '02-generic/font.generic';
 
 /* === 03 - ELEMENTS */
 // styling for bare HTML elements (like H1, A, etc.). These come with default
@@ -33,6 +34,7 @@
 // our UI components are often composed of Objects and Components.
 @import '05-components/login.components';
 @import '05-components/signUp.components';
+@import '05-components/profile.components';
 
 /* === 06 - TRUPMS */
 // trumps and helper classes with ability to override anything which goes
