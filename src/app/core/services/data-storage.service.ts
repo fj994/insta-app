@@ -13,9 +13,19 @@ export class DataStorageService {
   constructor(private http: HttpClient, private authService: authService) { }
 
   getProfile() {
-    return this.http.get(this.apiPath);
-    // this.authService.user.pipe(take(1), exhaustMap(user => {
-    //   return this.http.get(this.apiPath);
-    // }))
+    
+    return this.http.get(`${this.apiPath}profile/${this.authService.user.value.id}`);
   }
+
+  uploadPost(image: File, id: string) {
+    console.log(image);
+    
+    let uploadData = new FormData();
+    uploadData.append('file', image);
+    console.log(uploadData);
+    
+    return this.http.post(`${this.apiPath}post/upload/${id}`, uploadData);
+  }
+
+  
 }

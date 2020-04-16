@@ -32,6 +32,7 @@
 /* === 05 - COMPONENTS */
 // specific UI components. This is where majority of our work takes place and
 // our UI components are often composed of Objects and Components.
+@import '05-components/header.components';
 @import '05-components/login.components';
 @import '05-components/signUp.components';
 @import '05-components/profile.components';

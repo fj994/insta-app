@@ -1,10 +1,27 @@
+<header>
+
+</header>
 <div class="profile">
     <div class="profile__details">
-        <div class="profile__profile-img-container">
-            <img class="profile__profile-img" src="https://vengreso.com/wp-content/uploads/2016/03/LinkedIn-Profile-Professional-Picture-Sample-Bernie-Borges-300x300.png" alt="profile picture">
+        <div>
+            <div class="profile__profile-img-container">
+                <img class="profile__profile-img"
+                    src="https://vengreso.com/wp-content/uploads/2016/03/LinkedIn-Profile-Professional-Picture-Sample-Bernie-Borges-300x300.png"
+                    alt="profile picture">
+            </div>
         </div>
         <div class="profile__name-container">
             <h2>Filip Jakovčević</h2>
+        </div>
+    </div>
+    <div class="profile__pictures-container-buttons">
+        <input type="file" (change)="uploadImage($event)">
+    <button>Add picture</button>
+<button>Delete picture</button>
+</div>
+    <div class="profile__pictures-container">
+        <div class="profile__picture-container"  *ngFor="let picture of pictureArray">
+            <img class="profile__picture" src={{picture}} alt="">
         </div>
     </div>
 </div>
