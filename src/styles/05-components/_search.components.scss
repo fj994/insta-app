@@ -1,0 +1,12 @@
+.search {
+    display: inline-block;
+    height: 3rem;
+    width: 26rem;
+    margin-top: 1rem;
+    margin-left: 100%;
+    border-radius: 5px;
+    border: 1px solid $gray-border-color;
+    background: url('/assets/icons/search.svg') no-repeat .5rem .5rem;
+    padding-left: 3rem;
+    outline: none;
+}

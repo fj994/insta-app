@@ -31,10 +31,14 @@ export class SignUpComponent implements OnInit {
   signup({ value }) {
     this.authService.signup(value).subscribe(
       (response: { message, error }) => {
+        console.log(response);
+        
         alert(response.message);
         this.router.navigate(['/login']);
       },
       response => {
+        console.log(response);
+
         alert(response.error.message);
       }
     );

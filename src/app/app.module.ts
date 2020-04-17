@@ -13,6 +13,9 @@ import { RefreshTokenInterceptor } from './core/auth/refresh-token-interceptor';
 import { AuthGuard } from './core/auth/auth.guard';
 import { authService } from './core/auth/auth.service';
 import { ProfileComponent } from './views/profile/profile.component';
+import { HeaderComponent } from './core/shared/components/header/header.component';
+import { PostComponent } from './core/shared/components/post/post.component';
+import { SearchComponent } from './core/shared/components/search/search.component';
 
 const appRoutes: Routes = [
   { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
@@ -27,7 +30,10 @@ const appRoutes: Routes = [
     LoginComponent,
     SignUpComponent,
     NewsFeedComponent,
-    ProfileComponent
+    ProfileComponent,
+    HeaderComponent,
+    PostComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,8 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: RefreshTokenInterceptor,
       multi: true
-    }
+    },
+    Location
   ],
   bootstrap: [AppComponent]
 })

@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/core/models/user.model';
+import { User } from 'src/app/core/shared/models/user.model';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
-import { Token } from '@angular/compiler/src/ml_parser/lexer';
+import { Post } from 'src/app/core/shared/models/post.model';
 
 @Component({
   selector: 'app-news-feed',
   templateUrl: './news-feed.component.html'
 })
 export class NewsFeedComponent implements OnInit {
-  private userSub: Subscription;
-  user: string;
   constructor(private authService: authService, private dataStorage: DataStorageService) { }
 
+  posts: Post[];
+
   ngOnInit() {
-    this.user = this.authService.user.value.token;
-    
-    this.dataStorage.getProfile().subscribe(
-      res => console.log(res) 
-    )
+    this.dataStorage.getNewsfeed().subscribe(res => {
+      this.posts = [...res];
+    })
     
   }
 

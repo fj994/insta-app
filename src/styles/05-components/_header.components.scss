@@ -1,7 +1,72 @@
-header {
-    height: 4rem;
+.header {
+    height: 5rem;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
     z-index: 99;
     position: relative;
+    display: flex;
+    padding-left: calc((100% - 975px) / 2);
+    padding-right: calc((100% - 975px) / 2);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    @include shadow;
+
+    &__icon {
+
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    a {
+        display: inline-block;
+    }
+
+    &__logo {
+        height: 50px;
+        width: 50px;
+        background-image: url("/assets/icons/logo_small.png");
+    }
+
+    &__home {
+        margin-top: 1.5rem;
+        margin-bottom: 15px;
+        height: 20px;
+        width: 50px;
+        background-image: url("/assets/icons/Home-icon.png");
+
+        &:hover, &.active {
+            background-image: url("/assets/icons/home-icon-active.png");
+        }
+    }
+
+    &__profile {
+        margin-top: 1.5rem;
+        height: 20px;
+        width: 50px;
+        margin-bottom: 15px;
+        background-image: url("/assets/icons/profile-icon.png");
+
+        &:hover, &.active {
+            background-image: url("/assets/icons/profile-icon-active.png");
+        }
+    }
+
+    &__add-post {
+        margin-left: auto;
+        margin-right: 3rem;
+        display: inline-block;
+        width: 130px;
+        height: 18px;
+        margin-top: 1.5rem;
+        background-image: url('/assets/icons/add-post-icon.png');
+        background-position: right;
+        cursor: pointer;
+    }
+
+    @media only screen and (max-width: 975px) {
+        padding: 0;
+    }
 }

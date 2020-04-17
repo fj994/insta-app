@@ -1,0 +1,47 @@
+.post {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid $gray-border-color;
+    border-radius: 5px;
+    margin-bottom: 6rem;
+
+    &__header {
+        height: 6rem;
+        display: flex;
+
+        &-thumbnail {
+            display: inline-block;
+            height: 4rem;
+            width: 4rem;
+            margin: 1rem;
+            border-radius: 1000px;
+            border: 2px solid $gray-border-color;
+
+            &-img {
+                
+            }
+        }
+
+        &-name {
+            display: inline-block;
+            height: 100%;
+            padding: 2.2rem 0 2.2rem .5rem;
+        }
+    }
+
+    &__body {
+        border-top: 1px solid $gray-border-color;
+        border-bottom: 1px solid $gray-border-color;
+        
+        &-image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    &__footer {
+        min-height: 4rem;
+    }
+}

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { User } from '../models/user.model';
+import { User } from '../shared/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class authService {
   constructor(private http: HttpClient, private router: Router, private jwt: JwtHelperService) { }
 
   signup(newUser) {
-    return this.http.post(`${this.apiPath}users`, newUser).pipe(
+    return this.http.post(`${this.apiPath}users`, newUser, {headers: {skip: 'true'}}).pipe(
       catchError(errorRes => {
         return throwError(errorRes);
       })
@@ -73,7 +73,7 @@ export class authService {
       return;
     }
     
-    this.user.next(new User(user.email, user.id, user._token, user._refreshToken));
+    this.user.next(new User(user.email, user.id, user._token, user._refreshToken));    
   }
 
   storeUserData(user: User): void  {
