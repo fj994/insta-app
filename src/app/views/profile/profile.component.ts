@@ -17,13 +17,15 @@ export class ProfileComponent implements OnInit {
       this.profile = {
         name: profile.name,
         profileImage: `${this.auth.apiPath}static/${profile.profileImage}`,
-        posts: [...profile.posts.map(post => `${this.auth.apiPath}static/${post}`)]
+        posts: [...profile.posts.map(post => `${this.auth.apiPath}static/${post}`)],
+        followersCount: profile.followersCount,
+        followingCount: profile.followingCount,
       };
     })
   }
 
   uploadImage(event) {
-    this.dataStorage.uploadPost(event.target.files[0], this.auth.user.value.id).subscribe(response =>{
+    this.dataStorage.uploadPost(event.target.files[0]).subscribe(response =>{
       alert(response.image);
       this.profile.posts.unshift(`http://localhost:3000/static/${response.image}`);
     });

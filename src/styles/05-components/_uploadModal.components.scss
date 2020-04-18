@@ -1,0 +1,95 @@
+.overlay {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 99;
+    height: 100%;
+    width: 100%;
+    background-color: #000000;
+    opacity: 0.6;
+}
+
+.upload-modal {
+    width: 681px;
+    background-color: $background-color;
+    position: fixed;
+    top: calc(50% - 330px);
+    left: calc(50% - 340.5px);
+    z-index: 99;
+    border-radius: 10px;
+    border: 1px solid $gray-border-color;
+    @include shadow;
+
+    &__header {
+        padding: 2rem;
+        height: 8.5rem;
+        width: 100%;
+
+        &-image-name {
+            display: inline-block;
+            margin-left: 2rem;
+            width: calc(100% - 19rem);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &__preview {
+        &-container {
+            width: 100%;
+            max-height: 40rem;
+            padding: 0;
+            background-color: #e7e7e7;
+            border-top: 1px solid $gray-border-color;
+            border-bottom: 1px solid $gray-border-color;
+        }
+
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: auto;
+        max-width: 100%;
+        max-height: 40rem;
+        height: auto;
+    }
+
+    &__footer {
+        width: 100%;
+        height: 23rem;
+        padding: 2rem;
+
+        &-textarea {
+            display: block;
+            width: 100%;
+            height: 5rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            outline: none;
+            padding-left: 0.5rem;
+            padding-top: 0.5rem;
+            resize: none;
+        }
+    }
+
+    &__button {
+        display: inline-block;
+        height: 4.5rem;
+        width: 15rem;
+        border: none;
+        border-radius: 10px;
+        // margin-left: rem;
+        border: 1px solid $gray-border-color;
+        outline: none;
+        @include shadow;
+        transition: all 0.2s ease;
+
+        &--cancel {
+            margin-left: calc(100% - 30rem);
+            margin-right: 0;
+        }
+
+        &:active {
+            @include shadow-min;
+        }
+    }
+}

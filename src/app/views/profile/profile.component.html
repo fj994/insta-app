@@ -8,21 +8,16 @@
                 <h2>{{profile?.name | titlecase}}</h2>
             </div>
             <div class="profile__detailes">
-                Followers: 35 
+                Followers: {{profile?.followersCount}}
             </div>
             <div class="profile__detailes">
-                Following: 10
+                Following: {{profile?.followingCount}}
             </div>
         </div>
     </div>
     <div class="profile__pictures-container-buttons">
-        <input type="file" (change)="uploadImage($event)">
-        <button>Add picture</button>
-        <button>Delete picture</button>
     </div>
     <div class="profile__pictures-container">
-        <div class="profile__picture-container">
-        </div>
         <div class="profile__picture-container" *ngFor='let post of profile?.posts'>
             <img class="profile__picture" src={{post}} alt="">
         </div>

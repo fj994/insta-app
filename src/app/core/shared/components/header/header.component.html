@@ -2,6 +2,7 @@
         <a class="header__home header__icon" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"></a>
         <a class="header__profile header__icon" [routerLink]="['/profile']" routerLinkActive="active"></a>
         <app-search></app-search>
-        <span class="header__add-post header__icon">Upload image</span>
+        <span class="header__add-post header__icon" (click)="onUploadImageClick()">Upload image</span>
         <a class="header__logo header__icon" [routerLink]="['/']"></a>
+        
 </header>

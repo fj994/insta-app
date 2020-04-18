@@ -19,11 +19,13 @@ export class DataStorageService {
     return this.http.get<Profile>(`${this.apiPath}profile/${this.authService.user.value.id}`);
   }
 
-  uploadPost(image: File, id: string) {    
+  uploadPost(formValues) {    
     let uploadData = new FormData();
-    uploadData.append('file', image);
+    uploadData.append('file', formValues.image);
+    uploadData.append('caption', formValues.caption);
+    uploadData.append('hashtags', formValues.hashtags);
     
-    return this.http.post<{image: string}>(`${this.apiPath}post/upload/${id}`, uploadData);
+    return this.http.post<{image: string}>(`${this.apiPath}post/upload`, uploadData);
   }
 
   getNewsfeed() {

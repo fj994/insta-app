@@ -16,10 +16,12 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { HeaderComponent } from './core/shared/components/header/header.component';
 import { PostComponent } from './core/shared/components/post/post.component';
 import { SearchComponent } from './core/shared/components/search/search.component';
+import { UploadImageModalComponent } from './core/shared/modals/upload-image-modal/upload-image-modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent }
 ]
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     ProfileComponent,
     HeaderComponent,
     PostComponent,
-    SearchComponent
+    SearchComponent,
+    UploadImageModalComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ const appRoutes: Routes = [
     },
     Location
   ],
+  entryComponents: [UploadImageModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
