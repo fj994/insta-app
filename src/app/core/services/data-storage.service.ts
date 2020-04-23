@@ -31,5 +31,9 @@ export class DataStorageService {
   getNewsfeed() {
     return this.http.get<Post[]>(`${this.apiPath}newsfeed`);
   }
+
+  postComment(comment: {post_id: number, comment: string}) {
+    return this.http.post(`${this.apiPath}comment`, comment);
+  }
   
 }

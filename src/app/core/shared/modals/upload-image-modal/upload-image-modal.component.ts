@@ -11,6 +11,8 @@ export class UploadImageModalComponent implements OnInit {
   previewUrl: string | ArrayBuffer | any = '/assets/icons/no-img-placeholder.png';
   imageName: string;
   uploadForm: FormGroup;
+  uploading: boolean = false;
+  uploaded: boolean = false;
 
   constructor(private modalService: ModalService, private dataStorage: DataStorageService) { }
 
@@ -22,38 +24,47 @@ export class UploadImageModalComponent implements OnInit {
     });
   }
 
-  onFormSubmit({ value }) {    
-    if (value.hashtags && typeof(value.hashtags) !== 'object') {
+  onFormSubmit({ value }) {
+    if (value.hashtags && typeof (value.hashtags) !== 'object') {
       value.hashtags = value.hashtags.split(' ')
         .map(element => element[0] === '#' ? element : '#' + element);
     }
 
+    this.uploading = true;
+
     this.dataStorage.uploadPost(value).subscribe(res => {
-      console.log(res);
+      this.uploading = false;
+      this.uploaded = true;
+
+      setTimeout(() => {
+        this.cancel();
+      }, 1000);
     }
     );
   }
 
-  test(event) {
-    if (event.target.files && event.target.files[0]) {      
+  onFileInputChange(event) {
+    if (event.target.files && event.target.files[0]) {
       this.imageName = event.target.files[0].name;
       this.uploadForm.patchValue({
         image: event.target.files[0]
       })
       console.log(event.target.files[0]);
-      
+
       let reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0]);
 
       reader.onload = (event: any) => {
         this.previewUrl = event.target.result;
-        }
-      
+      }
+
     }
   }
 
   cancel() {
-    this.modalService.destroy();
+    if (!this.uploading) {
+      this.modalService.destroy();
+    }
   }
 }

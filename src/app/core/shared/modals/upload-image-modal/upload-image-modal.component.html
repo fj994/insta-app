@@ -2,21 +2,27 @@
 <div class="upload-modal">
     <form [formGroup]="uploadForm" (ngSubmit)="onFormSubmit(uploadForm, fileInput)">
         <div class="upload-modal__header">
-            <input #fileInput type="file" accept="image/*" (change)="test($event)"
+            <input #fileInput type="file" accept="image/*" (change)="onFileInputChange($event)"
                 style="visibility: hidden; position: absolute;">
-            <button type="button" class="upload-modal__button" (click)="fileInput.click()">Choose image...</button><span
-                class="upload-modal__header-image-name">{{imageName}}</span>
+            <button type="button" class="upload-modal__button" (click)="fileInput.click()">Choose image...</button>
+            <span class="upload-modal__header-image-name">{{imageName}}</span>
+            <div class="loader-container">
+                <div class="loader" *ngIf="uploading">Loading...</div>
+                <div class="upload-modal__checked" *ngIf="uploaded"></div>
+            </div>
         </div>
         <div class="upload-modal__preview-container">
             <img class="upload-modal__preview" [src]="previewUrl" alt="">
         </div>
         <div class="upload-modal__footer">
-            <textarea formControlName="caption" class="upload-modal__footer-textarea" placeholder="Insert caption..." cols="30"
-                rows="2"></textarea>
-            <textarea formControlName="hashtags" class="upload-modal__footer-textarea" placeholder="Insert hashtags..." cols="30"
-                rows="2"></textarea>
-            <button type="submit" class="upload-modal__button">Upload</button>
-            <button type="button" class="upload-modal__button upload-modal__button--cancel" (click)="cancel()">Cancel</button>
+            <textarea formControlName="caption" class="upload-modal__footer-textarea" placeholder="Insert caption..."
+                cols="30" rows="2"></textarea>
+            <textarea formControlName="hashtags" class="upload-modal__footer-textarea" placeholder="Insert hashtags..."
+                cols="30" rows="2"></textarea>
+            <button type="submit" class="upload-modal__button"
+                [disabled]="uploading || !fileInput.value || uploaded">Upload</button>
+            <button type="button" class="upload-modal__button upload-modal__button--cancel" (click)="cancel()"
+                [disabled]="uploading || uploaded">Cancel</button>
         </div>
     </form>
 </div>

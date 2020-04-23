@@ -28,10 +28,21 @@
         &-image-name {
             display: inline-block;
             margin-left: 2rem;
-            width: calc(100% - 19rem);
+            width: calc(100% - 24rem);
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-right: 3rem;
         }
+    }
+
+    &__checked {
+        height: 3rem;
+        width: 3rem;
+        display: inline-block;
+        background-image: url('/assets/icons/checked-icon.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
     }
 
     &__preview {
@@ -90,6 +101,10 @@
 
         &:active {
             @include shadow-min;
+        }
+
+        &:disabled {
+            opacity: .5;
         }
     }
 }

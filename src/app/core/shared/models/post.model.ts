@@ -1,4 +1,10 @@
+import { postComment } from './comment.model';
+
 export interface Post {
-    id: number;
-    imagePath: string
+    post_id: number;
+    imagePath: string;
+    hashtags: string[];
+    user: string;
+    profile_image_path: string; 
+    comments: postComment[];
 }

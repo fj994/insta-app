@@ -19,21 +19,20 @@
             border: 2px solid $gray-border-color;
 
             &-img {
-                
             }
         }
 
         &-name {
             display: inline-block;
             height: 100%;
-            padding: 2.2rem 0 2.2rem .5rem;
+            padding: 2.2rem 0 2.2rem 0.5rem;
         }
     }
 
     &__body {
         border-top: 1px solid $gray-border-color;
         border-bottom: 1px solid $gray-border-color;
-        
+
         &-image {
             display: block;
             width: 100%;
@@ -43,5 +42,38 @@
 
     &__footer {
         min-height: 4rem;
+
+        &-textarea {
+            &-container {
+                height: 5.3rem;
+                padding: 1.6rem;
+                background-color: #fff;
+                border-top: 1px solid $gray-border-color;
+                border-radius: 5px;
+                display: flex;
+            }
+
+            color: inherit;
+            display: inline-block;
+            resize: none;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            width: calc(100% - 5rem);
+            height: 100%;
+            padding: 0;
+        }
+
+        &-post-button {
+            display: inline-block;
+            width: 4rem;
+            height: 100%;
+            color: rgb(64, 185, 255);
+            cursor: pointer;
+            
+            &:hover {
+                color: rgb(0, 105, 224);
+            }
+        }
     }
 }

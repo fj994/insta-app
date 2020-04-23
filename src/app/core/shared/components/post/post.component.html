@@ -10,6 +10,18 @@
         <img class="post__body-image" src="http://localhost:3000/static/{{post.image_path}}" alt="post image">
     </div>
     <div class="post__footer">
-        footer
+        <p>
+            {{post.likes.length}} likes<br>
+            {{post.caption}}
+        </p>
+        <a href="#" *ngFor="let hashtag of post.hashtags">{{hashtag}} </a>
+        <p *ngFor="let comment of post.comments">
+            {{comment.email}}
+            {{comment.comment}}
+        </p>
+        <div class="post__footer-textarea-container">
+                <textarea class="post__footer-textarea" cols="30" rows="1" placeholder="Write a comment..." #commentTextArea></textarea>
+            <div class="post__footer-post-button" (click)="onPostComment(commentTextArea)">Post</div>
+        </div>
     </div>
 </div>
