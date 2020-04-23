@@ -7,4 +7,5 @@ export interface Post {
     user: string;
     profile_image_path: string; 
     comments: postComment[];
+    likes: number[];
 }

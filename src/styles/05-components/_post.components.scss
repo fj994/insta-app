@@ -42,10 +42,11 @@
 
     &__footer {
         min-height: 4rem;
+        font-size: 14px;
 
         &-textarea {
             &-container {
-                height: 5.3rem;
+                min-height: 5.3rem;
                 padding: 1.6rem;
                 background-color: #fff;
                 border-top: 1px solid $gray-border-color;
@@ -57,7 +58,6 @@
             display: inline-block;
             resize: none;
             border: none;
-            border-radius: 5px;
             outline: none;
             width: calc(100% - 5rem);
             height: 100%;
@@ -69,11 +69,75 @@
             width: 4rem;
             height: 100%;
             color: rgb(64, 185, 255);
+            border: none;
+            background-color: inherit;
             cursor: pointer;
             
             &:hover {
                 color: rgb(0, 105, 224);
             }
+
+            &:disabled {
+                color: rgb(145, 145, 145);
+            }
+        }
+
+        &-comment {
+            padding: 0 2rem 0 2rem;
+            margin-bottom: .5rem;
+
+            &-user {
+                margin-right: 1rem;
+                font-weight: 700;
+            }
+
+            &-text {
+                word-break: break-all;
+            }
+        }
+
+        &-comment-like {
+            margin-left: calc(100% - 23rem);
+            margin-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        &-icons {
+            display: flex;
+            padding-left: 2rem;
+            padding-top: 1rem;
+        }
+
+        &-icon {
+            display: inline-block;
+            height: 3rem;
+            width: 3rem;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-right: 1rem;
+            cursor: pointer;
+
+            &--like {
+                background-image: url('/assets/icons/heartFulll.png');
+                height: 2.7rem;
+            }
+
+            &--unlike {
+                background-image: url('/assets/icons/heartEmptyy.png');
+                height: 2.7rem;
+            }
+
+            &--comment {
+                height: 2.8rem;
+                width: 2.9rem;
+                background-image: url('/assets/icons/commentIcon.png');
+            }
+        }
+
+        &-comments-container {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
     }
 }

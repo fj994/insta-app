@@ -10,18 +10,36 @@
         <img class="post__body-image" src="http://localhost:3000/static/{{post.image_path}}" alt="post image">
     </div>
     <div class="post__footer">
-        <p>
-            {{post.likes.length}} likes<br>
+        <div class="post__footer-icons">
+            <div class="post__footer-icon post__footer-icon--like" *ngIf="liked" (click)="onLikeClick()"></div>
+            <div class="post__footer-icon post__footer-icon--unlike" *ngIf="!liked" (click)="onLikeClick()"></div>
+            <div class="post__footer-icon post__footer-icon--comment" (click)="commentExpand = !commentExpand"></div>
+            <span class="post__footer-comment-like">
+                <span>
+                    {{post.likes.length}} likes
+                </span>
+                <span (click)="commentExpand = !commentExpand" style="cursor: pointer;">
+                    {{post.comments.length}} comments
+                </span>
+            </span>
+        </div>
+        <!-- <p>
             {{post.caption}}
-        </p>
+        </p> -->
         <a href="#" *ngFor="let hashtag of post.hashtags">{{hashtag}} </a>
-        <p *ngFor="let comment of post.comments">
-            {{comment.email}}
-            {{comment.comment}}
-        </p>
-        <div class="post__footer-textarea-container">
-                <textarea class="post__footer-textarea" cols="30" rows="1" placeholder="Write a comment..." #commentTextArea></textarea>
-            <div class="post__footer-post-button" (click)="onPostComment(commentTextArea)">Post</div>
+        <div *ngIf="commentExpand">
+            <div class="post__footer-comments-container">
+                <div class="post__footer-comment" *ngFor="let comment of post.comments">
+                    <span class="post__footer-comment-user">{{comment.email}}</span>
+                    <span class="post__footer-comment-text">{{comment.comment}}</span>
+                </div>
+            </div>
+            <div class="post__footer-textarea-container">
+                <textarea class="post__footer-textarea" autosize rows="1" placeholder="Write a comment..."
+                    #commentTextArea></textarea>
+                <button class="post__footer-post-button" (click)="onPostComment(commentTextArea)"
+                    [disabled]="!commentTextArea.value == ''">Post</button>
+            </div>
         </div>
     </div>
 </div>

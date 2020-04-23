@@ -35,5 +35,13 @@ export class DataStorageService {
   postComment(comment: {post_id: number, comment: string}) {
     return this.http.post(`${this.apiPath}comment`, comment);
   }
+
+  postLike(value: boolean, post_id: number) {
+    const like = {
+      value: value,
+      post_id: post_id
+    }
+    return this.http.post(`${this.apiPath}like`, like);
+  }
   
 }

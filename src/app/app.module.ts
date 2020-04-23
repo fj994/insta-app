@@ -17,6 +17,7 @@ import { HeaderComponent } from './core/shared/components/header/header.componen
 import { PostComponent } from './core/shared/components/post/post.component';
 import { SearchComponent } from './core/shared/components/search/search.component';
 import { UploadImageModalComponent } from './core/shared/modals/upload-image-modal/upload-image-modal.component';
+import { AutosizeModule } from 'ngx-autosize';
 
 const appRoutes: Routes = [
   { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
@@ -51,7 +52,8 @@ const appRoutes: Routes = [
         blacklistedRoutes: ['localhost:3000/login', 'localhost:3000/signup'],
         whitelistedDomains: ['localhost:3000']
       }
-    })
+    }),
+    AutosizeModule
   ],
   providers: [
     {
