@@ -17,7 +17,7 @@ export class authService {
   constructor(private http: HttpClient, private router: Router, private jwt: JwtHelperService) { }
 
   signup(newUser) {
-    return this.http.post(`${this.apiPath}users`, newUser, {headers: {skip: 'true'}}).pipe(
+    return this.http.post(`${this.apiPath}/users`, newUser, {headers: {skip: 'true'}}).pipe(
       catchError(errorRes => {
         return throwError(errorRes);
       })
@@ -25,7 +25,7 @@ export class authService {
   }
 
   login(user) {
-    return this.http.post<{login, token, refreshToken}>(`${this.apiPath}login`, user, {headers: {skip: 'true'}}).pipe(
+    return this.http.post<{login, token, refreshToken}>(`${this.apiPath}/login`, user, {headers: {skip: 'true'}}).pipe(
       catchError(errorRes => {
         return throwError(errorRes)
       }), tap(
@@ -47,7 +47,7 @@ export class authService {
       token: this.user.value.token,
       refreshToken: this.user.value.refreshToken
     }
-    return this.http.post<{login: boolean, token: string}>(`${this.apiPath}refresh`, tokens, {headers: {skip: 'true'}});
+    return this.http.post<{login: boolean, token: string}>(`${this.apiPath}/refresh`, tokens, {headers: {skip: 'true'}});
   }
 
   handleAuthentication(token: string, refreshToken: string): void {
@@ -74,6 +74,10 @@ export class authService {
     }
     
     this.user.next(new User(user.email, user.id, user._token, user._refreshToken));    
+  }
+
+  getUserId() {
+    return this.user.value.id;
   }
 
   storeUserData(user: User): void  {

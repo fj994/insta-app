@@ -14,10 +14,9 @@ export class NewsFeedComponent implements OnInit {
 
   posts: Post[];
 
-  ngOnInit() {
+  ngOnInit() {    
     this.dataStorage.getNewsfeed().subscribe(res => {
       this.posts = [...res];
-      console.log(this.posts);
     })
   }
 

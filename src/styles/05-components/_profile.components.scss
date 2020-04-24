@@ -10,6 +10,7 @@
         display: flex;
         padding: 2rem;
         flex-wrap: wrap;
+        margin-bottom: 3rem;
     }
 
     &__profile-img-container {
@@ -26,13 +27,14 @@
     }
 
     &__details-container {
-        width: 70rem;
+        width: 50rem;
         height: 18rem;
         margin-left: 5rem;
     }
 
     &__detailes {
         margin-bottom: .5rem;
+        font-size: 14px;
     }
 
     &__name-container {
@@ -45,8 +47,20 @@
         }
     }
 
+    &__follow-button {
+        display: inline-block;
+        margin: auto 0 auto auto;
+        border: 1px solid $gray-border-color;
+        padding: 1rem 2rem;
+        height: 3.8rem;
+        width: 11rem;
+        text-align: center;
+        justify-items: center;
+        cursor: pointer;
+    }
+
     &__pictures-container {
-        padding-top: 1rem;
+        padding-top: 5rem;
         border-top: 1px solid $gray-border-color;
         height: 100px;
         width: 100%;

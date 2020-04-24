@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/core/shared/models/profile.model';
+import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,26 +10,43 @@ import { Profile } from 'src/app/core/shared/models/profile.model';
 })
 export class ProfileComponent implements OnInit {
   profile: Profile;
+  owner: boolean;
 
-  constructor(private dataStorage: DataStorageService, private auth: authService) { }
+  constructor(
+    private dataStorage: DataStorageService,
+    private auth: authService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.dataStorage.getProfile().subscribe( profile => {
-      this.profile = {
-        name: profile.name,
-        profileImage: `${this.auth.apiPath}static/${profile.profileImage}`,
-        posts: [...profile.posts.map(post => `${this.auth.apiPath}static/${post}`)],
-        followersCount: profile.followersCount,
-        followingCount: profile.followingCount,
-      };
+    this.loadProfile();
+  }
+
+  loadProfile() {
+    let id;
+
+    if (this.route.snapshot.params.id) {
+      id = this.route.snapshot.params.id;
+      this.owner = false;
+    } else {
+      id = this.auth.getUserId();
+      this.owner = true;
+    }
+
+    this.dataStorage.getProfile(id).subscribe(profile => {
+      console.log(profile);
+      
+      this.profile = profile;
+    }, () => {
+      this.router.navigate(['']);
+    });
+  }
+
+
+  onFollowClick() {
+    this.dataStorage.followStatusChange(this.profile.followStatus, this.profile.id).subscribe(() => {
+      this.profile.followStatus = !this.profile.followStatus;
     })
   }
-
-  uploadImage(event) {
-    this.dataStorage.uploadPost(event.target.files[0]).subscribe(response =>{
-      alert(response.image);
-      this.profile.posts.unshift(`http://localhost:3000/static/${response.image}`);
-    });
-
-  }
 }
+
