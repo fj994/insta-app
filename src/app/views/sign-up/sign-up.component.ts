@@ -17,6 +17,10 @@ export class SignUpComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    if(this.authService.isLoggedIn()) {      
+      this.router.navigate(['']);
+    }
+
     this.initForm();
   }
 

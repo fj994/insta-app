@@ -13,6 +13,13 @@ export class LoginComponent implements OnInit {
   constructor(private authService: authService, private router: Router) { }
 
   ngOnInit() {
+    console.log(this.authService.isLoggedIn());
+    
+    if(this.authService.isLoggedIn()) {
+      console.log('2');
+      
+      this.router.navigate(['']);
+    }
     this.initForm();
   }
 
