@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { Observable } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { take, exhaustMap } from 'rxjs/operators';
 import { authService } from './auth.service';
 
@@ -25,6 +25,12 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
             return this.authService.refreshToken().pipe(
                 take(1),
                 exhaustMap(data => {
+                    console.log(data);
+                    if(data && data.login === false) {
+                        this.authService.logout();
+                        return EMPTY;
+                    }
+                    
                     this.authService.updateToken(data.token);
                     request = request.clone({
                         setHeaders: {Authorization: data.token}

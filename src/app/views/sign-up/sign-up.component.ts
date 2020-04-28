@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
 
@@ -12,7 +11,6 @@ export class SignUpComponent implements OnInit {
   signInForm: FormGroup;
 
   constructor(
-    private http: HttpClient,
     private authService: authService,
     private router: Router) { }
 

@@ -47,7 +47,7 @@ export class authService {
       token: this.user.value.token,
       refreshToken: this.user.value.refreshToken
     }
-    return this.http.post<{login: boolean, token: string}>(`${this.apiPath}/refresh`, tokens, {headers: {skip: 'true'}});
+    return this.http.post<{login: boolean, token: string, err: string}>(`${this.apiPath}/refresh`, tokens, {headers: {skip: 'true'}});
   }
 
   handleAuthentication(token: string, refreshToken: string): void {
