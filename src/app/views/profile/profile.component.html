@@ -2,6 +2,9 @@
     <div class="profile__header">
         <div class="profile__profile-img-container">
             <img class="profile__profile-img" src="{{profile?.profileImage}}" alt="">
+            <div class="profile__profile-img-overlay" *ngIf="owner" (click)="profileImgInput.click()">
+                <input type="file" accept="image/*" style="visibility: hidden;" (change)="onProfileImgInputChange($event)"#profileImgInput>
+            </div>
         </div>
         <div class="profile__details-container">
             <div class="profile__name-container">

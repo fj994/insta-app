@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
     this.dataStorage.getProfile(id).subscribe(profile => {
       console.log(profile);
-      
+
       this.profile = profile;
     }, () => {
       this.router.navigate(['']);
@@ -47,6 +47,16 @@ export class ProfileComponent implements OnInit {
     this.dataStorage.followStatusChange(this.profile.followStatus, this.profile.id).subscribe(() => {
       this.profile.followStatus = !this.profile.followStatus;
     })
+  }
+
+  onProfileImgInputChange(event) {
+    console.log(
+      event.target.files[0]
+    );
+
+    this.dataStorage.uploadProfileImage(event.target.files[0]).subscribe(res => {
+      this.profile.profileImage = `${this.dataStorage.apiPath}/static/${res.image}`;
+    });
   }
 }
 

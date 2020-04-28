@@ -39,7 +39,7 @@ export class UploadImageModalComponent implements OnInit {
       setTimeout(() => {
         this.cancel();
       }, 1000);
-    }
+    }, err => console.log(err)
     );
   }
 

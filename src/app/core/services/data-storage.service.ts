@@ -31,6 +31,13 @@ export class DataStorageService {
     return this.http.post<{ image: string }>(`${this.apiPath}/post/upload`, uploadData);
   }
 
+  uploadProfileImage(file) {
+    let uploadData = new FormData();
+    uploadData.append('file', file);
+
+    return this.http.post<{image: string}>(`${this.apiPath}/uploadProfile`, uploadData);
+  }
+
   getNewsfeed() {
     console.log('bb');
     
