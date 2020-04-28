@@ -3,15 +3,15 @@
   height: 4rem;
   border-radius: 10px;
   border: none;
-  padding-left: 4.4rem;
+  padding-left: 4.8rem;
   background-repeat: no-repeat;
-  background-size: 1.5rem auto;
-  background-position: 1.5rem 1.3rem;
+  background-size: 2rem auto;
+  background-position: 1.5rem 1rem;
   @include shadow;
 
   &:focus, &.ng-invalid {
     outline: none;
-    background-position: 1.5rem calc(1.3rem - 1px);
+    background-position: 1.5rem calc(1rem - 1px);
     @include shadow-min;
     transition: all 0.2s;
   }
@@ -20,16 +20,16 @@
     border: 1px solid $blue-highlight-color;
   }
   
-  &--email {
-    background-image: url(/assets/icons/mail.png);
+  &--username {
+    background-image: url(/assets/icons/username.svg);
   }
 
   &--password {
-    background-image: url(/assets/icons/login.png);
+    background-image: url(/assets/icons/password.svg);
   }
 
   &.ng-invalid.ng-touched {
     border: 1px solid rgba(255, 89, 48, 0.74);
-    background-position: 1.5rem calc(1.3rem - 2px);
+    background-position: 1.5rem calc(1rem - 2px);
   }
 }

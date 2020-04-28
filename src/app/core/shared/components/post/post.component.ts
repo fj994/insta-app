@@ -28,11 +28,12 @@ export class PostComponent implements OnInit {
       const newComment: postComment = {
         user_id: this.auth.getUserId(),
         post_id: this.post.post_id,
-        email: this.auth.user.value.email,
+        username: this.auth.user.value.username,
         comment: commentInput.value,
         timestamp: ''
       }
-
+      console.log(newComment);
+      
       this.post.comments.push(newComment);
       commentInput.value = '';
     })

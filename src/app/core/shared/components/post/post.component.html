@@ -4,7 +4,7 @@
             <img class="post__header-thumbnail" src="http://localhost:3000/static/{{post.profile_image_path}}"
                 alt="profile thumbnail">
         </div>
-        <span class="post__header-name">{{post.email | titlecase}}</span>
+        <span class="post__header-name">{{post.username | titlecase}}</span>
     </div>
     <div class="post__body">
         <img class="post__body-image" src="http://localhost:3000/static/{{post.image_path}}" alt="post image">
@@ -32,7 +32,7 @@
         <div *ngIf="commentExpand">
             <div class="post__footer-comments-container">
                 <div class="post__footer-comment" *ngFor="let comment of post.comments">
-                    <span class="post__footer-comment-user">{{comment.email}}</span>
+                    <span class="post__footer-comment-user">{{comment.username}}</span>
                     <span class="post__footer-comment-text">{{comment.comment}}</span>
                 </div>
             </div>

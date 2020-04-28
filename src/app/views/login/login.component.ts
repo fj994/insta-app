@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.logInForm = new FormGroup({
-      'email': new FormControl(null, [Validators.email, Validators.required]),
+      'username': new FormControl(null, [Validators.required]),
       'password': new FormControl(null, Validators.required)
     })
   }
 
   loginSubmit({ value }) {
-    if (value.password && value.email) {
+    if (value.password && value.username) {
       this.authService.login(value).subscribe(
         ({ login, token, refreshToken }: { login: boolean, token: string, refreshToken: string }) => {
           if (login && token && refreshToken) {

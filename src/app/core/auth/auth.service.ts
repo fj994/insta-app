@@ -53,7 +53,7 @@ export class authService {
   handleAuthentication(token: string, refreshToken: string): void {
     const payload = this.jwt.decodeToken(token);
     
-    this.user.next(new User(payload.email, payload.id, token, refreshToken));
+    this.user.next(new User(payload.username, payload.id, token, refreshToken));
     this.storeUserData(this.user.value);
     localStorage.setItem('refreshToken', refreshToken);
   }
@@ -73,7 +73,7 @@ export class authService {
       return;
     }
     
-    this.user.next(new User(user.email, user.id, user._token, user._refreshToken));    
+    this.user.next(new User(user.username, user.id, user._token, user._refreshToken));    
   }
 
   getUserId() {
@@ -85,7 +85,7 @@ export class authService {
   }
 
   updateToken(newToken: string): void {
-    let user =  new User(this.user.value.email, this.user.value.id, newToken, this.user.value.refreshToken);
+    let user =  new User(this.user.value.username, this.user.value.id, newToken, this.user.value.refreshToken);
     this.storeUserData(user);
     this.user.next(user);
   }
