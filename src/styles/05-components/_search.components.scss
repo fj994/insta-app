@@ -32,7 +32,7 @@
             margin: auto 0 auto 1rem;
         }
    
-        &:hover {
+        &:hover , &:focus{
             background-color: $background-color;
         }
     }

@@ -1,10 +1,11 @@
 <div class="post">
     <div class="post__header">
-        <div>
-            <img class="thumbnail thumbnail--medium" src="{{post.profile_image_path}}"
-                alt="profile thumbnail">
-        </div>
-        <span class="post__header-name">{{post.username | titlecase}}</span>
+        <span [routerLink]="['/profile', post.user_id]" style="display: flex; cursor: pointer; outline: none;">
+            <div>
+                <img class="thumbnail thumbnail--medium" src="{{post.profile_image_path}}" alt="profile thumbnail">
+            </div>
+            <span class="post__header-name">{{post.username | titlecase}}</span>
+        </span>
     </div>
     <div class="post__body">
         <img class="post__body-image" src="{{post.image_path}}" alt="post image">
@@ -14,7 +15,8 @@
             <div class="post__footer-icon post__footer-icon--like" *ngIf="liked" (click)="onLikeClick()"></div>
             <div class="post__footer-icon post__footer-icon--unlike" *ngIf="!liked" (click)="onLikeClick()"></div>
             <label for="comment">
-                <div class="post__footer-icon post__footer-icon--comment" (click)="commentExpand = !commentExpand"></div>
+                <div class="post__footer-icon post__footer-icon--comment" (click)="commentExpand = !commentExpand">
+                </div>
             </label>
             <span class="post__footer-comment-like">
                 <span>
@@ -25,10 +27,10 @@
                 </span>
             </span>
         </div>
-        <!-- <p>
+        <p>
             {{post.caption}}
-        </p> -->
-        <a href="#" *ngFor="let hashtag of post.hashtags">{{hashtag}} </a>
+        </p>
+        <a [routerLink]="['/hashtag', hashtag]" *ngFor="let hashtag of post.hashtags">{{hashtag}} </a>
         <div *ngIf="commentExpand">
             <div class="post__footer-comments-container">
                 <div class="post__footer-comment" *ngFor="let comment of post.comments">

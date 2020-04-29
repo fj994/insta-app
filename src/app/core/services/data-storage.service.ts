@@ -50,6 +50,18 @@ export class DataStorageService {
     }));
   }
 
+  getHashtagPosts(hashtag) {
+    let params = new HttpParams().set('hashtag', hashtag);
+
+    return this.http.get<Post[]>(`${this.apiPath}/hashtag`, {params}).pipe(map(posts => {
+      posts.map(post => {
+        post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
+        post.image_path = `${this.apiPath}/static/${post.image_path}`;
+      });
+      return posts;
+    }));
+  }
+
   postComment(comment: string, post_id: number) {
     const commentObj = {
       post_id: post_id,

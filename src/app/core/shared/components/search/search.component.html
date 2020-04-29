@@ -1,8 +1,9 @@
 <div class="search__container">
     <input class="search" type="text" (keyup)="this.searchValueChange.next(searchInput.value)" #searchInput>
-    <div class="search__dropdown" *ngIf="dropDownShow && users[0] || hashtags[0]">
+    <div class="search__dropdown" *ngIf="dropDownShow">
         <ng-container *ngIf="hashtags[0]">
-            <a class="search__items search__items--hashtag" (click)="onHashtagClick(user.id, searchInput)" *ngFor="let hashtag of hashtags">
+            <a class="search__items search__items--hashtag" (click)="onHashtagClick(hashtag.hashtag, searchInput)"
+                *ngFor="let hashtag of hashtags">
                 <img class="thumbnail thumbnail--small" src='/assets/icons/hashtag.jpg' alt="">
                 <span class="search__items-name">
                     {{hashtag.hashtag}}
