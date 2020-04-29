@@ -10,19 +10,6 @@
         height: 6rem;
         display: flex;
 
-        &-thumbnail {
-            display: inline-block;
-            height: 4rem;
-            width: 4rem;
-            margin: 1rem;
-            border-radius: 1000px;
-            border: 2px solid $gray-border-color;
-            object-fit: cover;
-
-            &-img {
-            }
-        }
-
         &-name {
             display: inline-block;
             height: 100%;

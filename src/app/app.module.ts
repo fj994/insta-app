@@ -23,9 +23,10 @@ const appRoutes: Routes = [
   { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'hashtag/:hashtag', component: NewsFeedComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: '**', redirectTo: ''}
+  { path: '**', redirectTo: '' }
 ]
 
 @NgModule({

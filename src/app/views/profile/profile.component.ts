@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/core/shared/models/profile.model';
@@ -19,14 +19,20 @@ export class ProfileComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.loadProfile();
+    this.route.params.subscribe(params => {
+      this.loadProfile();
+    })
   }
 
   loadProfile() {
     let id;
-
     if (this.route.snapshot.params.id) {
       id = this.route.snapshot.params.id;
+
+      if(id == this.auth.getUserId()) {
+        this.router.navigate(['/profile']);
+      }
+      
       this.owner = false;
     } else {
       id = this.auth.getUserId();
@@ -34,8 +40,6 @@ export class ProfileComponent implements OnInit {
     }
 
     this.dataStorage.getProfile(id).subscribe(profile => {
-      console.log(profile);
-
       this.profile = profile;
     }, () => {
       this.router.navigate(['']);

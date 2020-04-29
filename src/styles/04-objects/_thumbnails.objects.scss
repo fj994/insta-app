@@ -1,0 +1,18 @@
+.thumbnail {
+    display: inline-block;
+    margin: 1rem;
+    border-radius: 1000px;
+    border: 2px solid $gray-border-color;
+    object-fit: cover;
+
+    &--medium {
+        height: 4rem;
+        width: 4rem;
+    }
+
+    &--small {
+        height: 3rem;
+        width: 3rem;
+        margin: 0;
+    }
+}
