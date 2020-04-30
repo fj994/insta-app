@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../modal.service';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-upload-image-modal',
@@ -14,6 +16,7 @@ export class UploadImageModalComponent implements OnInit {
   uploading: boolean = false;
   uploaded: boolean = false;
 
+
   constructor(private modalService: ModalService, private dataStorage: DataStorageService) { }
 
   ngOnInit() {
@@ -22,6 +25,8 @@ export class UploadImageModalComponent implements OnInit {
       'caption': new FormControl(null),
       'hashtags': new FormControl(null)
     });
+    this.dataStorage.postSubject.subscribe(post => console.log(post)
+    )
   }
 
   onFormSubmit({ value }) {
@@ -34,7 +39,8 @@ export class UploadImageModalComponent implements OnInit {
 
     this.dataStorage.uploadPost(value).subscribe(res => {
       this.uploading = false;
-      this.uploaded = true;
+      this.uploaded = true;      
+      this.dataStorage.postSubject.next(res);
 
       setTimeout(() => {
         this.cancel();
@@ -49,7 +55,6 @@ export class UploadImageModalComponent implements OnInit {
       this.uploadForm.patchValue({
         image: event.target.files[0]
       })
-      console.log(event.target.files[0]);
 
       let reader = new FileReader();
 

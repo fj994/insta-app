@@ -5,6 +5,7 @@ import { User } from 'src/app/core/shared/models/user.model';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { Post } from 'src/app/core/shared/models/post.model';
 import { ActivatedRoute } from '@angular/router';
+import { UploadImageModalComponent } from 'src/app/core/shared/modals/upload-image-modal/upload-image-modal.component';
 
 @Component({
   selector: 'app-news-feed',
@@ -14,7 +15,8 @@ export class NewsFeedComponent implements OnInit {
   constructor(
     private authService: authService,
     private dataStorage: DataStorageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private uploadModal: UploadImageModalComponent
   ) { }
 
   posts: Post[];
@@ -27,6 +29,11 @@ export class NewsFeedComponent implements OnInit {
         this.loadNewsFeed();
       }
     });
+
+    
+    this.dataStorage.postSubject.subscribe(
+      post => this.posts.unshift(post)
+    );
   }
 
   loadNewsFeed() {

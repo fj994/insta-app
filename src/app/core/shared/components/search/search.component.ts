@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ValueTransformer } from '@angular/compiler/src/util';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { Router } from '@angular/router';
@@ -32,16 +31,19 @@ export class SearchComponent implements OnInit {
         this.dataStorage.getSearchResults(value).subscribe(res => {
           this.clearResults();
 
-          if (res.hashtags) {
+          if (res.hashtags && res.hashtags.length) {            
             this.hashtags = [...res.hashtags];
             this.dropDownShow = true;
-          } else if (res.users) {
+          } else if (res.users && res.users.length) {
             this.users = [...res.users];
             this.dropDownShow = true;
+          } else {
+            this.dropDownShow = false;
           }
         });
       } else {
         this.clearResults();
+        this.dropDownShow = false;
       }
     })
   }

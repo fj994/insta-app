@@ -5,14 +5,17 @@ import { authService } from '../auth/auth.service';
 import { Profile } from '../shared/models/profile.model';
 import { Post } from '../shared/models/post.model';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ProfileComponent } from 'src/app/views/profile/profile.component';
+import { PostComponent } from '../shared/components/post/post.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataStorageService {
   apiPath: string = environment.apiPath;
+
+  postSubject = new Subject<Post>();
 
   constructor(private http: HttpClient, private authService: authService) { }
 
@@ -30,7 +33,19 @@ export class DataStorageService {
     uploadData.append('caption', formValues.caption);
     uploadData.append('hashtags', formValues.hashtags);
 
-    return this.http.post<{ image: string }>(`${this.apiPath}/post/upload`, uploadData);
+    return this.http.post<{ image: string, post_id, profile_image_path }>(`${this.apiPath}/post/upload`, uploadData).pipe(map(res=> {
+        return { 
+          post_id: res.post_id,
+          image_path: `${this.apiPath}/static/${res.image}`,
+          hashtags: formValues.hashtags,
+          caption: formValues.caption,
+          comments: [],
+          likes: [],
+          profile_image_path: `${this.apiPath}/static/${res.profile_image_path}`,
+          user_id: this.authService.getUserId(),
+          username: this.authService.user.value.username
+        };
+    }));
   }
 
   uploadProfileImage(file) {
@@ -46,6 +61,7 @@ export class DataStorageService {
         post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
         post.image_path = `${this.apiPath}/static/${post.image_path}`;
       });
+      
       return posts;
     }));
   }

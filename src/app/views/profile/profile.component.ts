@@ -3,6 +3,7 @@ import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/core/shared/models/profile.model';
 import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
+import { UploadImageModalComponent } from 'src/app/core/shared/modals/upload-image-modal/upload-image-modal.component';
 
 @Component({
   selector: 'app-profile',
@@ -22,6 +23,10 @@ export class ProfileComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.loadProfile();
     })
+
+    this.dataStorage.postSubject.subscribe(
+      post => this.profile.posts.unshift(post.image_path)
+    );
   }
 
   loadProfile() {
@@ -29,10 +34,10 @@ export class ProfileComponent implements OnInit {
     if (this.route.snapshot.params.id) {
       id = this.route.snapshot.params.id;
 
-      if(id == this.auth.getUserId()) {
+      if (id == this.auth.getUserId()) {
         this.router.navigate(['/profile']);
       }
-      
+
       this.owner = false;
     } else {
       id = this.auth.getUserId();

@@ -63,7 +63,8 @@ const appRoutes: Routes = [
       useClass: RefreshTokenInterceptor,
       multi: true
     },
-    Location
+    Location,
+    UploadImageModalComponent
   ],
   entryComponents: [UploadImageModalComponent],
   bootstrap: [AppComponent]

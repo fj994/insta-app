@@ -31,6 +31,15 @@ export class SignUpComponent implements OnInit {
   }
 
   signup({ value }) {
+    value.username = value.username.trim();
+    value.password = value.password.trim();
+    value.confirmPassword = value.confirmPassword.trim();
+
+    if(value.password !== value.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }    
+
     this.authService.signup(value).subscribe(
       (response: { message, error }) => {
         console.log(response);

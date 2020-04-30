@@ -6,7 +6,7 @@
     position: relative;
     display: flex;
     padding-left: calc((100% - 975px) / 2);
-    padding-right: calc((100% - 975px) / 2);
+    padding-right: calc((100% - 975px) / 2 - 96px);
     position: fixed;
     top: 0;
     right: 0;
@@ -18,6 +18,10 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
+
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 
     &__logo {
@@ -54,12 +58,29 @@
         margin-left: auto;
         margin-right: 3rem;
         display: inline-block;
-        width: 130px;
-        height: 18px;
+        width: 120px;
+        height: 17px;
         margin-top: 1.5rem;
         background-image: url('/assets/icons/add-post-icon.png');
-        background-position: right;
+        background-position: right center;
         cursor: pointer;
+        
+        &:hover {
+            transform: scale3d(1.05, 1.1, 1.1);
+            color: #b00015;
+        }
+    }
+
+    &__logout-button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        margin-left: 3rem;
+        outline: none;
+        &:hover {
+            color: #b00015;
+            transform: scale(1.1);
+        }
     }
 
     @media only screen and (max-width: 975px) {
