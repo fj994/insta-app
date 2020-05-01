@@ -2,22 +2,21 @@
   width: 28rem;
   height: 4rem;
   border-radius: 10px;
-  border: none;
+  border: 1px solid transparent;
   padding-left: 4.8rem;
   background-repeat: no-repeat;
   background-size: 2rem auto;
   background-position: 1.5rem 1rem;
   @include shadow;
+  outline: none;
 
   &:focus, &.ng-invalid {
-    outline: none;
-    background-position: 1.5rem calc(1rem - 1px);
     @include shadow-min;
-    transition: all 0.2s;
   }
 
   &:focus {
     border: 1px solid $blue-highlight-color;
+    background-position: 1.7rem 1rem;
   }
   
   &--username {
@@ -29,7 +28,7 @@
   }
 
   &.ng-invalid.ng-touched {
-    border: 1px solid rgba(255, 89, 48, 0.74);
-    background-position: 1.5rem calc(1rem - 2px);
+    border: 1px solid #ff5930bd;
+    background-position: 1.6rem 1rem;
   }
 }

@@ -86,4 +86,10 @@
     @media only screen and (max-width: 975px) {
         padding: 0;
     }
+
+    &::after {
+        display: none;
+        content: url("/assets/icons/home-icon-active.png") url("/assets/icons/profile-icon-active.png") 
+                url("/assets/icons/profile-icon.png") url("/assets/icons/Home-icon.png");
+    }
 }
