@@ -10,13 +10,14 @@
   @include shadow;
   outline: none;
 
-  &:focus, &.ng-invalid {
+  &:focus, &.ng-invalid.ng-touched {
     @include shadow-min;
+    background-position: 1.6rem 1.1rem;
   }
 
   &:focus {
-    border: 1px solid $blue-highlight-color;
-    background-position: 1.7rem 1rem;
+    border-color: $blue-highlight-color;
+    background-position: 1.6rem 1.1rem;
   }
   
   &--username {
@@ -28,7 +29,6 @@
   }
 
   &.ng-invalid.ng-touched {
-    border: 1px solid #ff5930bd;
-    background-position: 1.6rem 1rem;
+    border-color: #ff5930;
   }
 }
