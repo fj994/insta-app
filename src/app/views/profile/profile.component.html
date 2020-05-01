@@ -17,7 +17,8 @@
                 Following: {{profile?.followingCount}}
             </div>
         </div>
-        <div class="profile__follow-button" *ngIf="!owner" (click)="onFollowClick()">{{profile?.followStatus ? 'Following' : 'Follow'}}</div>
+        <div class="profile__button" *ngIf="!owner" (click)="onFollowClick()">{{profile?.followStatus ? 'Following' : 'Follow'}}</div>
+        <div class="profile__button" *ngIf="owner" (click)="onEditProfileInfoClick()">Edit</div>
     </div>
     <div class="profile__pictures-container-buttons">
     </div>

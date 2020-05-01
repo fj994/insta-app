@@ -19,6 +19,9 @@ import { SearchComponent } from './core/shared/components/search/search.componen
 import { UploadImageModalComponent } from './core/shared/modals/upload-image-modal/upload-image-modal.component';
 import { AutosizeModule } from 'ngx-autosize';
 import { DialogModalComponent } from './core/shared/modals/dialog-modal/dialog-modal.component';
+import { EditProfileModalComponent } from './core/shared/modals/edit-profile-modal/edit-profile-modal.component';
+import { ModalService } from './core/shared/modals/modal.service';
+import { AutoClosingDialogModalComponent } from './core/shared/modals/auto-closing-dialog-modal/auto-closing-dialog-modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
@@ -41,7 +44,9 @@ const appRoutes: Routes = [
     PostComponent,
     SearchComponent,
     UploadImageModalComponent,
-    DialogModalComponent
+    DialogModalComponent,
+    EditProfileModalComponent,
+    AutoClosingDialogModalComponent
   ],
   imports: [
     BrowserModule,
@@ -66,9 +71,16 @@ const appRoutes: Routes = [
       multi: true
     },
     Location,
-    UploadImageModalComponent
+    UploadImageModalComponent,
+    authService,
+    ModalService
   ],
-  entryComponents: [UploadImageModalComponent, DialogModalComponent],
+  entryComponents: [
+    UploadImageModalComponent,
+    DialogModalComponent,
+    EditProfileModalComponent,
+    AutoClosingDialogModalComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

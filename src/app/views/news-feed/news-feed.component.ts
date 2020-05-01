@@ -44,14 +44,9 @@ export class NewsFeedComponent implements OnInit {
 
   loadHashtagPosts(hashtag: string) {
     hashtag = hashtag.replace('#', '');
-    console.log(hashtag);
     
     this.dataStorage.getHashtagPosts(hashtag).subscribe(res => {      
       this.posts = [...res];
     });
-  }
-
-  logout() {
-    this.authService.logout();
   }
 }

@@ -1,0 +1,67 @@
+.edit-profile-modal {
+    height: 35rem;
+    width: 50rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $background-color;
+    border-radius: 10px;
+    z-index: 99;
+    @include shadow;
+
+    &__tabs {
+        display: block;
+        height: 5rem;
+        width: 100%;
+        background-color: #5c5c5c;
+        border-radius: 8px 8px 0 0;
+    }
+
+    &__tab {
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        line-height: 5rem;
+        background-color: gray;
+        font-weight: 700;
+        border-radius: 8px 8px 0 0;
+
+        &--first {
+            &.shadow {
+                -webkit-box-shadow: inset -11px -13px 11px -4px rgba(89, 89, 89, 0.92);
+                -moz-box-shadow: inset -11px -13px 11px -4px rgba(89, 89, 89, 0.92);
+                box-shadow: inset -11px -13px 11px -4px rgba(89, 89, 89, 0.92);
+            }
+        }
+
+        &--second {
+            &.shadow {
+                -webkit-box-shadow: inset 11px -13px 11px -4px rgba(89, 89, 89, 0.92);
+                -moz-box-shadow: inset 11px -13px 11px -4px rgba(89, 89, 89, 0.92);
+                box-shadow: inset 11px -13px 11px -4px rgba(89, 89, 89, 0.92);
+            }
+        }
+
+        &.active {
+            background-color: $background-color;
+        }
+    }
+
+    &__form-inputs {
+        width: 100%;
+        display: block;
+        padding: 3rem 11rem 2rem 11rem;
+        height: 20rem;
+        input {
+            margin-top: 2rem;
+        }
+    }
+
+    &__button {
+        height: 4rem;
+        width: 7rem;
+        margin: 4rem 3rem 0 auto;
+        display: block;
+    }
+}

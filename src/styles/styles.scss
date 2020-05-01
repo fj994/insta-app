@@ -34,6 +34,8 @@
 /* === 05 - COMPONENTS */
 // specific UI components. This is where majority of our work takes place and
 // our UI components are often composed of Objects and Components.
+@import '05-components/autoDialogModal.components';
+@import '05-components/editProfileModal.components';
 @import '05-components/dialogModal.components';
 @import '05-components/uploadModal.components';
 @import '05-components/search.components';
@@ -46,4 +48,5 @@
 /* === 06 - TRUPMS */
 // trumps and helper classes with ability to override anything which goes
 // before in the triangle, eg. hide helper class.
+@import '06-trumps/padding.trumps.scss';
 

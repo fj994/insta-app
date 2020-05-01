@@ -60,6 +60,7 @@ export class DataStorageService {
       posts.map(post => {
         post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
         post.image_path = `${this.apiPath}/static/${post.image_path}`;
+        post.caption = post.caption === 'null' ? null : post.caption;
       });
       
       return posts;

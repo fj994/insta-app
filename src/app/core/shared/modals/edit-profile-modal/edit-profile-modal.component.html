@@ -1,0 +1,25 @@
+<div class="overlay" (click)="destroy()"></div>
+<div class="edit-profile-modal">
+    <div class="edit-profile-modal__tabs">
+        <div class="edit-profile-modal__tab edit-profile-modal__tab--first" (click)="onUsernameTabClick()"
+            [ngClass]="passwordTab ? 'shadow' : 'active'">
+            Username
+        </div>
+        <div class="edit-profile-modal__tab edit-profile-modal__tab--second" (click)="onPasswordTabClick()"
+            [ngClass]="passwordTab ? 'active' : 'shadow'">
+            Password
+        </div>
+    </div>
+    <form [formGroup]="editForm" (ngSubmit)="onEditFormSubmit(editForm)">
+        <div class="edit-profile-modal__form-inputs" [ngClass]="{'padding-t-6rem': !passwordTab}">
+            <input formControlName="password" class="contact-details-input contact-details-input--password" type="password" placeholder="Password">
+            <input formControlName="username" class="contact-details-input contact-details-input--username" type="text" placeholder="New username"
+            *ngIf="!passwordTab">
+            <ng-container *ngIf="passwordTab">
+                <input formControlName="newPassword" class="contact-details-input contact-details-input--password" type="password" placeholder="New password">
+                <input formControlName="confirmPassword" class="contact-details-input contact-details-input--password" type="password" placeholder="Confirm new password">
+            </ng-container>
+        </div>
+        <button class="edit-profile-modal__button">Apply</button>
+    </form>
+</div>

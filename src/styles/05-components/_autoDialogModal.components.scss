@@ -1,7 +1,7 @@
-.dialog-modal {
+.auto-dialog-modal {
     padding: 2rem;
     position: fixed;
-    height: 15rem;
+    height: 10rem;
     width: 40rem;
     background-color: $background-color;
     top: 20%;
@@ -11,18 +11,18 @@
     z-index: 99;
     @include shadow;
 
+    animation: fade-out 0.5s 1;
+    animation-delay: 2s;
+
+    @keyframes fade-out{
+        from {opacity :1;}
+        to {opacity :0;}
+    }
+
     &__text {
         display: block;
         width: fit-content;
         max-width: 80%;
         margin: 2rem auto 2rem auto;
-    }
-
-    &__button {
-        margin-top: 4rem;
-        width: 6rem;
-        height: 3rem;
-        display: block;
-        margin-left: auto;
     }
 }

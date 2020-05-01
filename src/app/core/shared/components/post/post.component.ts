@@ -15,12 +15,12 @@ export class PostComponent implements OnInit {
 
   constructor(private dataStorage: DataStorageService, private auth: authService) { }
 
-  ngOnInit() {    
+  ngOnInit() {
     this.liked = this.post.likes.includes(+this.auth.user.value.id);
   }
 
-  onPostComment(commentInput) {
-    if(!commentInput.value) {
+  onPostComment(commentInput): void {
+    if (!commentInput.value) {
       return;
     }
 
@@ -32,17 +32,16 @@ export class PostComponent implements OnInit {
         comment: commentInput.value,
         timestamp: ''
       }
-      console.log(newComment);
-      
+
       this.post.comments.push(newComment);
       commentInput.value = '';
     })
   }
 
-  onLikeClick() {
+  onLikeClick(): void {
     this.dataStorage.postLike(!this.liked, this.post.post_id).subscribe(() => {
       this.liked = !this.liked;
-      if(!this.liked) {
+      if (!this.liked) {
         const index = this.post.likes.indexOf(+this.auth.user.value.id);
         this.post.likes.splice(index, 1);
       } else {

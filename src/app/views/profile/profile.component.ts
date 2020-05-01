@@ -4,6 +4,7 @@ import { authService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/core/shared/models/profile.model';
 import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
 import { UploadImageModalComponent } from 'src/app/core/shared/modals/upload-image-modal/upload-image-modal.component';
+import { ModalService } from 'src/app/core/shared/modals/modal.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit {
     private dataStorage: DataStorageService,
     private auth: authService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private modalService: ModalService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -29,7 +31,7 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  loadProfile() {
+  loadProfile(): void {
     let id;
     if (this.route.snapshot.params.id) {
       id = this.route.snapshot.params.id;
@@ -52,13 +54,18 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  onFollowClick() {
+  onFollowClick(): void {
     this.dataStorage.followStatusChange(this.profile.followStatus, this.profile.id).subscribe(() => {
+      this.profile.followStatus ? this.profile.followersCount-- : this.profile.followersCount++;
       this.profile.followStatus = !this.profile.followStatus;
     })
   }
 
-  onProfileImgInputChange(event) {
+  onEditProfileInfoClick = (): void => {
+    this.modalService.initEditProfileModal({initAutoDialogModal: this.modalService.initAutoClosingDialogModal, profile: this.profile});
+  }
+
+  onProfileImgInputChange(event): void {
     console.log(
       event.target.files[0]
     );

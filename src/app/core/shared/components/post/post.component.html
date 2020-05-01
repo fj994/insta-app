@@ -14,7 +14,7 @@
         <div class="post__footer-icons">
             <div class="post__footer-icon post__footer-icon--like" *ngIf="liked" (click)="onLikeClick()"></div>
             <div class="post__footer-icon post__footer-icon--unlike" *ngIf="!liked" (click)="onLikeClick()"></div>
-            <label for="comment">
+            <label for="comment{{post.post_id}}">
                 <div class="post__footer-icon post__footer-icon--comment" (click)="commentExpand = !commentExpand">
                 </div>
             </label>
@@ -27,11 +27,13 @@
                 </span>
             </span>
         </div>
-        <p>
+        <div class="post__caption" *ngIf="post.caption">
             {{post.caption}}
-        </p>
-        <a [routerLink]="['/hashtag', hashtag]" *ngFor="let hashtag of post.hashtags">{{hashtag}} </a>
-        <div *ngIf="commentExpand">
+        </div>
+        <div class="post__hashtags">
+            <a [routerLink]="['/hashtag', hashtag]" *ngFor="let hashtag of post.hashtags">{{hashtag}} </a>
+        </div>
+        <div *ngIf="commentExpand" class="post__comments">
             <div class="post__footer-comments-container">
                 <div class="post__footer-comment" *ngFor="let comment of post.comments">
                     <span class="post__footer-comment-user">{{comment.username}}</span>
@@ -39,10 +41,10 @@
                 </div>
             </div>
             <div class="post__footer-textarea-container">
-                <textarea class="post__footer-textarea" id="comment" autosize rows="1" placeholder="Write a comment..."
+                <textarea class="post__footer-textarea" id="comment{{post.post_id}}" autosize rows="1" placeholder="Write a comment..."
                     #commentTextArea></textarea>
                 <button class="post__footer-post-button" (click)="onPostComment(commentTextArea)"
-                    [disabled]="commentTextArea.value === ''">Post</button>
+                    [disabled]="commentTextArea.value.trim() === ''">Post</button>
             </div>
         </div>
     </div>
