@@ -1,0 +1,27 @@
+.dialog-modal {
+    padding: 2rem;
+    position: fixed;
+    height: 15rem;
+    width: 40rem;
+    background-color: $background-color;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    @include shadow;
+
+    &__text {
+        display: block;
+        width: fit-content;
+        max-width: 80%;
+        margin: 2rem auto 2rem auto;
+    }
+
+    &__button {
+        margin-top: 4rem;
+        width: 6rem;
+        height: 3rem;
+        display: block;
+        margin-left: auto;
+    }
+}

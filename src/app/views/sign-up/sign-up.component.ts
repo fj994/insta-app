@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
+import { ModalService } from 'src/app/core/shared/modals/modal.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,10 +13,12 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private authService: authService,
-    private router: Router) { }
+    private router: Router,
+    private modalService: ModalService
+  ) { }
 
   ngOnInit() {
-    if(this.authService.isLoggedIn()) {      
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['']);
     }
 
@@ -31,26 +34,28 @@ export class SignUpComponent implements OnInit {
   }
 
   signup({ value }) {
-    value.username = value.username.trim();
-    value.password = value.password.trim();
-    value.confirmPassword = value.confirmPassword.trim();
-
-    if(value.password !== value.confirmPassword) {
-      alert('Passwords do not match!');
+    if (value.username && value.password && value.confirmPassword) {
+      value.username = value.username.trim();
+      value.password = value.password.trim();
+      value.confirmPassword = value.confirmPassword.trim();
+    } else {
+      this.modalService.initDialogModal({ message: 'Please fill all fileds!' });
       return;
-    }    
+    }
+
+    if (value.password !== value.confirmPassword) {
+      this.modalService.initDialogModal({ message: 'Passwords do not match!' });
+      return;
+    }
 
     this.authService.signup(value).subscribe(
-      (response: { message, error }) => {
-        console.log(response);
-        
-        alert(response.message);
+      (response: { message, error }) => {        
+        this.modalService.initDialogModal({ message: response.message });
         this.router.navigate(['/login']);
       },
       response => {
         console.log(response);
-
-        alert(response.error.message);
+        this.modalService.initDialogModal({ message: response.error.message });
       }
     );
   }

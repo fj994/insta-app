@@ -20,6 +20,10 @@ export class DomService {
   ) { }
 
   public appendComponent(child: any, childConfig?: childConfig) {
+    if (this.childComponentRef) {
+      this.removeComponent();
+    }
+
     const childComponentRef = this.componentFactoryResolver
       .resolveComponentFactory(child)
       .create(this.injector);
@@ -36,15 +40,17 @@ export class DomService {
   }
 
   public removeComponent() {
-    this.appRef.detachView(this.childComponentRef.hostView);
-    this.childComponentRef.destroy();
+    if (this.childComponentRef) {
+      this.appRef.detachView(this.childComponentRef.hostView);
+      this.childComponentRef.destroy();
+    }
   }
 
   private attachConfig(config, ComponentRef) {
     let inputs = config.inputs;
     let outputs = config.outputs;
 
-    for(const key in inputs) {
+    for (const key in inputs) {
       ComponentRef.instance['inputs'] = inputs;
       ComponentRef.instance['outputs'] = outputs;
     }

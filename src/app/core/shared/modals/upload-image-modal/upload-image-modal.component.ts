@@ -17,7 +17,7 @@ export class UploadImageModalComponent implements OnInit {
   uploaded: boolean = false;
 
 
-  constructor(private modalService: ModalService, private dataStorage: DataStorageService) { }
+  constructor(private dataStorage: DataStorageService) { }
 
   ngOnInit() {
     this.uploadForm = new FormGroup({
@@ -69,7 +69,7 @@ export class UploadImageModalComponent implements OnInit {
 
   cancel() {
     if (!this.uploading) {
-      this.modalService.destroy();
+      this['inputs'].destroy();
     }
   }
 }

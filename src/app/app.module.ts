@@ -18,6 +18,7 @@ import { PostComponent } from './core/shared/components/post/post.component';
 import { SearchComponent } from './core/shared/components/search/search.component';
 import { UploadImageModalComponent } from './core/shared/modals/upload-image-modal/upload-image-modal.component';
 import { AutosizeModule } from 'ngx-autosize';
+import { DialogModalComponent } from './core/shared/modals/dialog-modal/dialog-modal.component';
 
 const appRoutes: Routes = [
   { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     PostComponent,
     SearchComponent,
-    UploadImageModalComponent
+    UploadImageModalComponent,
+    DialogModalComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,7 @@ const appRoutes: Routes = [
     Location,
     UploadImageModalComponent
   ],
-  entryComponents: [UploadImageModalComponent],
+  entryComponents: [UploadImageModalComponent, DialogModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

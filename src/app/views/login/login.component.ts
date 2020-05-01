@@ -1,23 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
+import { ModalService } from 'src/app/core/shared/modals/modal.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   logInForm: FormGroup;
 
-  constructor(private authService: authService, private router: Router) { }
+  constructor(
+    private authService: authService,
+    private router: Router,
+    private modalService: ModalService
+  ) { }
 
   ngOnInit() {
     console.log(this.authService.isLoggedIn());
-    
-    if(this.authService.isLoggedIn()) {
-      console.log('2');
-      
+
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['']);
     }
     this.initForm();
@@ -37,15 +40,18 @@ export class LoginComponent implements OnInit {
           if (login && token && refreshToken) {
             this.router.navigate(['/']);
           }
-        }, 
+        },
         errorRes => {
           console.log(errorRes);
-          
-          alert(errorRes.error.message);
+          this.modalService.initDialogModal({ message: errorRes.error.message });
         }
       )
     } else {
-      alert('Username or password empty!');
+      this.modalService.initDialogModal({ message: 'Please enter username and password!' });
     }
+  }
+
+  ngOnDestroy() {
+    this.modalService.destroy();
   }
 }
