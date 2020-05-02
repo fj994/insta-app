@@ -23,6 +23,8 @@
     "@auth0/angular-jwt": "^4.0.0",
     "jwt-decode": "^2.2.0",
     "ngx-autosize": "^1.7.5",
+    "ngx-google-places-autocomplete": "^2.0.4",
+    "ngx-infinite-scroll": "^8.0.2",
     "normalize.css": "^8.0.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

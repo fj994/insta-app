@@ -19,6 +19,8 @@
                 cols="30" rows="2"></textarea>
             <textarea formControlName="hashtags" class="upload-modal__footer-textarea" placeholder="Insert hashtags..."
                 cols="30" rows="2"></textarea>
+                <input ngx-google-places-autocomplete formControlName="location" class="upload-modal__footer-location" 
+                type="text" placeholder="Location..." (onAddressChange)="updateLocationModel(location.value)" #location>
             <button type="submit" class="upload-modal__button"
                 [disabled]="uploading || !fileInput.value || uploaded">Upload</button>
             <button type="button" class="upload-modal__button upload-modal__button--cancel" (click)="cancel()"

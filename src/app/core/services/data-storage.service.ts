@@ -5,9 +5,7 @@ import { authService } from '../auth/auth.service';
 import { Profile } from '../shared/models/profile.model';
 import { Post } from '../shared/models/post.model';
 import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
-import { ProfileComponent } from 'src/app/views/profile/profile.component';
-import { PostComponent } from '../shared/components/post/post.component';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,10 +26,13 @@ export class DataStorageService {
   }
 
   uploadPost(formValues) {
+    console.log(formValues);
+    
     let uploadData = new FormData();
     uploadData.append('file', formValues.image);
     uploadData.append('caption', formValues.caption);
     uploadData.append('hashtags', formValues.hashtags);
+    uploadData.append('location', formValues.location);
 
     return this.http.post<{ image: string, post_id, profile_image_path }>(`${this.apiPath}/post/upload`, uploadData).pipe(map(res=> {
         return { 
@@ -43,7 +44,8 @@ export class DataStorageService {
           likes: [],
           profile_image_path: `${this.apiPath}/static/${res.profile_image_path}`,
           user_id: this.authService.getUserId(),
-          username: this.authService.user.value.username
+          username: this.authService.user.value.username,
+          location: formValues.location
         };
     }));
   }
@@ -55,12 +57,18 @@ export class DataStorageService {
     return this.http.post<{ image: string }>(`${this.apiPath}/uploadProfile`, uploadData);
   }
 
-  getNewsfeed() {
-    return this.http.get<Post[]>(`${this.apiPath}/newsfeed`).pipe(map(posts => {
+  getNewsfeed(next?) {
+    const params = new HttpParams().set('next', next ? next : null);
+
+    return this.http.get<Post[]>(`${this.apiPath}/newsfeed`, {params}).pipe(map(posts => {
+      console.log(posts);
+      
       posts.map(post => {
+        console.log(posts);
         post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
         post.image_path = `${this.apiPath}/static/${post.image_path}`;
         post.caption = post.caption === 'null' ? null : post.caption;
+        post.location = post.location  === 'null' ? '' : post.location;
       });
       
       return posts;
@@ -74,6 +82,8 @@ export class DataStorageService {
       posts.map(post => {
         post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
         post.image_path = `${this.apiPath}/static/${post.image_path}`;
+        post.caption = post.caption === 'null' ? null : post.caption;
+        post.location = post.location  === 'null' ? '' : post.location;
       });
       return posts;
     }));

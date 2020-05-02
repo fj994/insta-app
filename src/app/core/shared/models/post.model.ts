@@ -10,4 +10,5 @@ export interface Post {
     likes: number[];
     caption: string;
     username: string;
+    location: string;
 }

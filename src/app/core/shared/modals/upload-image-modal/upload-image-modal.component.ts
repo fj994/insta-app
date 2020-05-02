@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../modal.service';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-upload-image-modal',
@@ -16,20 +13,20 @@ export class UploadImageModalComponent implements OnInit {
   uploading: boolean = false;
   uploaded: boolean = false;
 
-
-  constructor(private dataStorage: DataStorageService) { }
+  constructor(
+    private dataStorage: DataStorageService
+  ) { }
 
   ngOnInit() {
     this.uploadForm = new FormGroup({
       'image': new FormControl(null, Validators.required),
       'caption': new FormControl(null),
-      'hashtags': new FormControl(null)
+      'hashtags': new FormControl(null),
+      'location': new FormControl(null)
     });
-    this.dataStorage.postSubject.subscribe(post => console.log(post)
-    )
   }
 
-  onFormSubmit({ value }) {
+  onFormSubmit({ value }) {    
     if (value.hashtags && typeof (value.hashtags) !== 'object') {
       value.hashtags = value.hashtags.split(' ')
         .map(element => element[0] === '#' ? element : '#' + element);
@@ -39,7 +36,7 @@ export class UploadImageModalComponent implements OnInit {
 
     this.dataStorage.uploadPost(value).subscribe(res => {
       this.uploading = false;
-      this.uploaded = true;      
+      this.uploaded = true;
       this.dataStorage.postSubject.next(res);
 
       setTimeout(() => {
@@ -65,6 +62,12 @@ export class UploadImageModalComponent implements OnInit {
       }
 
     }
+  }
+
+  updateLocationModel(value) {
+    this.uploadForm.patchValue({
+      location: value
+    });
   }
 
   cancel() {

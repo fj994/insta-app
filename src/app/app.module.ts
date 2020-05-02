@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -62,7 +64,9 @@ const appRoutes: Routes = [
         whitelistedDomains: ['localhost:3000']
       }
     }),
-    AutosizeModule
+    AutosizeModule,
+    GooglePlaceModule,
+    InfiniteScrollModule
   ],
   providers: [
     {
@@ -70,7 +74,6 @@ const appRoutes: Routes = [
       useClass: RefreshTokenInterceptor,
       multi: true
     },
-    Location,
     UploadImageModalComponent,
     authService,
     ModalService

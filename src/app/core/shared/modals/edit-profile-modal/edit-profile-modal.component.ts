@@ -52,8 +52,10 @@ export class EditProfileModalComponent implements OnInit {
       this.authService.updateUsername(value).subscribe((res: {message: string}) => {
         this['inputs'].profile.name = value.username;
         this['inputs'].initAutoDialogModal({ message: res.message });
-      }, (res: {message: string}) => {
-        this['inputs'].initAutoDialogModal({ message: res.message });
+      }, res => {
+        console.log(res);
+        
+        this['inputs'].initAutoDialogModal({ message: res.error.message });
       })
     }
   }
