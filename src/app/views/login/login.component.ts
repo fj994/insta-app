@@ -26,14 +26,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
-  initForm() {
+  initForm(): void {
     this.logInForm = new FormGroup({
       'username': new FormControl(null, [Validators.required]),
       'password': new FormControl(null, Validators.required)
     })
   }
 
-  loginSubmit({ value }) {
+  loginSubmit({ value }): void {
     if (value.password && value.username) {
       this.authService.login(value).subscribe(
         ({ login, token, refreshToken }: { login: boolean, token: string, refreshToken: string }) => {
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.modalService.destroy();
   }
 }

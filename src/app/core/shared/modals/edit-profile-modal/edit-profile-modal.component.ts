@@ -16,7 +16,7 @@ export class EditProfileModalComponent implements OnInit {
     this.initForm();
   }
 
-  initForm() {
+  initForm(): void {
     this.editForm = new FormGroup({
       password: new FormControl(null, Validators.required),
       username: new FormControl(null, Validators.required),
@@ -25,11 +25,11 @@ export class EditProfileModalComponent implements OnInit {
     });
   }
 
-  destroy() {
+  destroy(): void {
     this['inputs'].destroy();
   }
 
-  onEditFormSubmit({ value }) {
+  onEditFormSubmit({ value }): void {
     if ((this.passwordTab && (!value.password || !value.newPassword || !value.confirmPassword))
       || (!this.passwordTab && (!value.password || !value.username))) {
       this['inputs'].initAutoDialogModal({ message: 'Not all required fields were entered!' });
@@ -60,12 +60,12 @@ export class EditProfileModalComponent implements OnInit {
     }
   }
 
-  onUsernameTabClick() {
+  onUsernameTabClick(): void {
     this.passwordTab = false;
     this.editForm.reset();
   }
 
-  onPasswordTabClick() {
+  onPasswordTabClick(): void {
     this.passwordTab = true;
     this.editForm.reset();
   }

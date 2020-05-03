@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { throwError, BehaviorSubject } from 'rxjs';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../shared/models/user.model';
-import { ModalService } from '../shared/modals/modal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +20,7 @@ export class authService {
     private jwt: JwtHelperService
   ) { }
 
-  signup(newUser) {
+  signup(newUser): Observable<Object> {
     return this.http.post(`${this.apiPath}/users`, newUser, { headers: { skip: 'true' } }).pipe(
       catchError(errorRes => {
         return throwError(errorRes);
@@ -29,7 +28,7 @@ export class authService {
     )
   }
 
-  login(user) {
+  login(user): Observable<{ login, token, refreshToken }> {
     return this.http.post<{ login, token, refreshToken }>(`${this.apiPath}/login`, user, { headers: { skip: 'true' } }).pipe(
       catchError(errorRes => {
         return throwError(errorRes)
@@ -41,21 +40,21 @@ export class authService {
     )
   }
 
-  updatePassword(values) {
+  updatePassword(values): Observable<Object | any> {
     return this.http.patch(`${this.apiPath}/password`, values);
   }
 
-  updateUsername(values) {
+  updateUsername(values): Observable<Object | any> {
     return this.http.patch(`${this.apiPath}/username`, values);
   }
 
-  logout() {
+  logout(): void {
     this.user.next(null);
     localStorage.setItem('userData', null);
     this.router.navigate(['/login']);
   }
 
-  refreshToken() {
+  refreshToken(): Observable<{ login: boolean, token: string, err: string }> {
     const tokens = {
       token: this.user.value.token,
       refreshToken: this.user.value.refreshToken
@@ -89,7 +88,7 @@ export class authService {
     this.user.next(new User(user.username, user.id, user._token, user._refreshToken));
   }
 
-  getUserId() {
+  getUserId(): string {
     return this.user.value.id;
   }
 

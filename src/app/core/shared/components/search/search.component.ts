@@ -48,26 +48,26 @@ export class SearchComponent implements OnInit {
     })
   }
 
-  onDocumentClick() {
+  onDocumentClick(): void {
     if (this.dropDownShow) this.dropDownShow = false;
   }
 
-  clearResults() {
+  clearResults(): void {
     this.hashtags = [];
     this.users = [];
   }
 
-  onUserClick(id, input) {
+  onUserClick(id, input): void {
     this.resetInput(input);
     this.router.navigate(['/profile', id]);
   }
 
-  onHashtagClick(hashtag, input) {
+  onHashtagClick(hashtag, input): void {
     this.resetInput(input);
     this.router.navigate(['/hashtag', hashtag]);
   }
 
-  resetInput(input) {
+  resetInput(input): void {
     input.value = '';
     this.searchValueChange.next('');
   }

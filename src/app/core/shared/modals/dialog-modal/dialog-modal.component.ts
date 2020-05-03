@@ -12,7 +12,7 @@ export class DialogModalComponent implements OnInit {
     this.message = this['inputs'].message;
   }
 
-  destroyModal() {
+  destroyModal(): void {
     this['inputs'].destroy();
   }
 }

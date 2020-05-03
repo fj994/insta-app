@@ -25,7 +25,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
             return this.authService.refreshToken().pipe(
                 take(1),
                 exhaustMap(data => {
-                    console.log(data);
                     if(data && data.login === false) {
                         this.authService.logout();
                         return EMPTY;

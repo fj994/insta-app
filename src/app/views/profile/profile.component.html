@@ -22,7 +22,7 @@
     </div>
     <div class="profile__pictures-container-buttons">
     </div>
-    <div class="profile__pictures-container">
+    <div class="profile__pictures-container" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
         <div class="profile__picture-container" *ngFor='let post of profile?.posts'>
             <img class="profile__picture" src={{post}} alt="">
         </div>

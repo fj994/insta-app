@@ -16,7 +16,7 @@ export class AutoClosingDialogModalComponent implements OnInit {
     }, 2400);
   }
 
-  destroyModal() {
+  destroyModal(): void {
     this['inputs'].destroy();
   }
 }

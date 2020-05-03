@@ -26,7 +26,7 @@ export class UploadImageModalComponent implements OnInit {
     });
   }
 
-  onFormSubmit({ value }) {    
+  onFormSubmit({ value }): void {    
     if (value.hashtags && typeof (value.hashtags) !== 'object') {
       value.hashtags = value.hashtags.split(' ')
         .map(element => element[0] === '#' ? element : '#' + element);
@@ -46,7 +46,7 @@ export class UploadImageModalComponent implements OnInit {
     );
   }
 
-  onFileInputChange(event) {
+  onFileInputChange(event): void {
     if (event.target.files && event.target.files[0]) {
       this.imageName = event.target.files[0].name;
       this.uploadForm.patchValue({
@@ -64,13 +64,13 @@ export class UploadImageModalComponent implements OnInit {
     }
   }
 
-  updateLocationModel(value) {
+  updateLocationModel(value): void {
     this.uploadForm.patchValue({
       location: value
     });
   }
 
-  cancel() {
+  cancel(): void {
     if (!this.uploading) {
       this['inputs'].destroy();
     }

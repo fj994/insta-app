@@ -1,9 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataStorageService } from 'src/app/core/services/data-storage.service';
 import { authService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/core/shared/models/profile.model';
-import { ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
-import { UploadImageModalComponent } from 'src/app/core/shared/modals/upload-image-modal/upload-image-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/core/shared/modals/modal.service';
 
 @Component({
@@ -13,6 +12,7 @@ import { ModalService } from 'src/app/core/shared/modals/modal.service';
 export class ProfileComponent implements OnInit {
   profile: Profile;
   owner: boolean;
+  next;
 
   constructor(
     private dataStorage: DataStorageService,
@@ -46,8 +46,9 @@ export class ProfileComponent implements OnInit {
       this.owner = true;
     }
 
-    this.dataStorage.getProfile(id).subscribe(profile => {
-      this.profile = profile;
+    this.dataStorage.getProfile(id).subscribe(res => {
+      this.profile = res.profile;
+      this.next = res.next;
     }, () => {
       this.router.navigate(['']);
     });
@@ -66,12 +67,15 @@ export class ProfileComponent implements OnInit {
   }
 
   onProfileImgInputChange(event): void {
-    console.log(
-      event.target.files[0]
-    );
-
     this.dataStorage.uploadProfileImage(event.target.files[0]).subscribe(res => {
       this.profile.profileImage = `${this.dataStorage.apiPath}/static/${res.image}`;
+    });
+  }
+
+  onScroll(): void {    
+    this.dataStorage.getMoreProfileImages(this.next, this.profile.id).subscribe(res => {
+      this.next = res.next;
+      this.profile.posts.push(...res.posts);
     });
   }
 }

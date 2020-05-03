@@ -5,7 +5,7 @@ import { authService } from '../auth/auth.service';
 import { Profile } from '../shared/models/profile.model';
 import { Post } from '../shared/models/post.model';
 import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,79 +17,73 @@ export class DataStorageService {
 
   constructor(private http: HttpClient, private authService: authService) { }
 
-  getProfile(id) {
-    return this.http.get<Profile | any>(`${this.apiPath}/profile/${id}`).pipe(map(profile => {
-      profile.profileImage = `${this.apiPath}/static/${profile.profileImage}`,
-        profile.posts = [...profile.posts.map(post => `${this.apiPath}/static/${post}`)]
-      return profile;
+  getProfile(id): Observable<any> {
+    return this.http.get<Profile | any>(`${this.apiPath}/profile/${id}`).pipe(map(res => {
+      res.profile.profileImage = `${this.apiPath}/static/${res.profile.profileImage}`;
+      res.profile.posts = [...res.profile.posts.map(post => `${this.apiPath}/static/${post}`)];
+      return res;
     }));
   }
 
-  uploadPost(formValues) {
-    console.log(formValues);
-    
+  getMoreProfileImages(next, profileId): Observable<{posts: string[], next: string}> {
+    const params = new HttpParams().set('next', next).set('profile_id', profileId);
+    return this.http.get<{posts: string[], next: string}>(`${this.apiPath}/profile-images`, { params }).pipe(
+      map(res => {
+        res.posts = res.posts.map(post => `${this.apiPath}/static/${post}`);
+        return res;
+      }));
+  }
+
+  uploadPost(formValues): Observable<Post> {
     let uploadData = new FormData();
     uploadData.append('file', formValues.image);
     uploadData.append('caption', formValues.caption);
     uploadData.append('hashtags', formValues.hashtags);
     uploadData.append('location', formValues.location);
 
-    return this.http.post<{ image: string, post_id, profile_image_path }>(`${this.apiPath}/post/upload`, uploadData).pipe(map(res=> {
-        return { 
-          post_id: res.post_id,
-          image_path: `${this.apiPath}/static/${res.image}`,
-          hashtags: formValues.hashtags,
-          caption: formValues.caption,
-          comments: [],
-          likes: [],
-          profile_image_path: `${this.apiPath}/static/${res.profile_image_path}`,
-          user_id: this.authService.getUserId(),
-          username: this.authService.user.value.username,
-          location: formValues.location
-        };
+    return this.http.post<{ image: string, post_id, profile_image_path }>(`${this.apiPath}/post/upload`, uploadData).pipe(map(res => {
+      return {
+        post_id: res.post_id,
+        image_path: `${this.apiPath}/static/${res.image}`,
+        hashtags: [...new Set<string>(formValues.hashtags)],
+        caption: formValues.caption,
+        comments: [],
+        likes: [],
+        profile_image_path: `${this.apiPath}/static/${res.profile_image_path}`,
+        user_id: this.authService.getUserId(),
+        username: this.authService.user.value.username,
+        location: formValues.location
+      };
     }));
   }
 
-  uploadProfileImage(file) {
+  uploadProfileImage(file): Observable<{ image: string }> {
     let uploadData = new FormData();
     uploadData.append('file', file);
 
     return this.http.post<{ image: string }>(`${this.apiPath}/uploadProfile`, uploadData);
   }
 
-  getNewsfeed(next?) {
-    const params = new HttpParams().set('next', next ? next : null);
+  getPosts(next?, hashtag?: string): Observable<Post[]> {
+    const params = new HttpParams()
+      .set('next', next ? next : null)
+      .set('hashtag', hashtag ? hashtag : null);
 
-    return this.http.get<Post[]>(`${this.apiPath}/newsfeed`, {params}).pipe(map(posts => {
+    return this.http.get<Post[]>(`${this.apiPath}/posts`, { params }).pipe(map(posts => {
       console.log(posts);
-      
-      posts.map(post => {
-        console.log(posts);
-        post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
-        post.image_path = `${this.apiPath}/static/${post.image_path}`;
-        post.caption = post.caption === 'null' ? null : post.caption;
-        post.location = post.location  === 'null' ? '' : post.location;
-      });
-      
-      return posts;
-    }));
-  }
 
-  getHashtagPosts(hashtag) {
-    let params = new HttpParams().set('hashtag', hashtag);
-
-    return this.http.get<Post[]>(`${this.apiPath}/hashtag`, {params}).pipe(map(posts => {
       posts.map(post => {
         post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
         post.image_path = `${this.apiPath}/static/${post.image_path}`;
         post.caption = post.caption === 'null' ? null : post.caption;
-        post.location = post.location  === 'null' ? '' : post.location;
+        post.location = post.location === 'null' ? '' : post.location;
       });
+
       return posts;
     }));
   }
 
-  postComment(comment: string, post_id: number) {
+  postComment(comment: string, post_id: number): Observable<any> {
     const commentObj = {
       post_id: post_id,
       comment: comment
@@ -98,7 +92,7 @@ export class DataStorageService {
     return this.http.post(`${this.apiPath}/comment`, commentObj);
   }
 
-  postLike(value: boolean, post_id: number) {
+  postLike(value: boolean, post_id: number): Observable<any> {
     const like = {
       value: value,
       post_id: post_id
@@ -106,11 +100,11 @@ export class DataStorageService {
     return this.http.post(`${this.apiPath}/like`, like);
   }
 
-  followStatusChange(currentStatus, id) {
+  followStatusChange(currentStatus, id): Observable<any> {
     return this.http.post(`${this.apiPath}/follow`, { status: currentStatus, id: id });
   }
 
-  getSearchResults(value: string): any {
+  getSearchResults(value: string): Observable<any> {
     if (value[0] === '#') {
       value = value.replace(/ /g, '');
     }
@@ -122,14 +116,14 @@ export class DataStorageService {
       this.getSearchUserResults(params);
   }
 
-  getSearchUserResults(params) {
+  getSearchUserResults(params): Observable<{ users: [{ profile_image_path }] }> {
     return this.http.get<{ users: [{ profile_image_path }] }>(`${this.apiPath}/search-users`, { params }).pipe(map(users => {
       users.users.map(user => user.profile_image_path = `${this.apiPath}/static/${user.profile_image_path}`);
       return users;
     }));
   }
 
-  getSearchHashtagResults(params) {
+  getSearchHashtagResults(params): Observable<any> {
     return this.http.get(`${this.apiPath}/search-hashtags`, { params });
   }
 }

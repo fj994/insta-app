@@ -12,7 +12,7 @@ export class ModalService {
 
   constructor(private domService: DomService) { }
 
-  init(component: any, inputs: object, outputs: object) {
+  init(component: any, inputs: object, outputs: object): void {
     const destroy = () => {
       this.destroy();
     }
@@ -25,23 +25,23 @@ export class ModalService {
     this.domService.appendComponent(component, componentConfig);
   }
 
-  initUploadImageModal(inputs) {
+  initUploadImageModal(inputs): void {
     this.init(UploadImageModalComponent, inputs, {});
   }
 
-  initDialogModal = (inputs) => {
+  initDialogModal = (inputs): void => {
     this.init(DialogModalComponent, inputs, {});
   }
 
-  initEditProfileModal(inputs) {
+  initEditProfileModal(inputs): void {
     this.init(EditProfileModalComponent, inputs, {});
   }
 
-  initAutoClosingDialogModal = (inputs) => {
+  initAutoClosingDialogModal = (inputs): void => {
     this.init(AutoClosingDialogModalComponent, inputs, {});
   }
 
-  destroy() {
+  destroy(): void {
     this.domService.removeComponent();
   }
 }

@@ -19,7 +19,7 @@ export class DomService {
     private injector: Injector
   ) { }
 
-  public appendComponent(child: any, childConfig?: childConfig) {
+  public appendComponent(child: any, childConfig?: childConfig): void {
     if (this.childComponentRef) {
       this.removeComponent();
     }
@@ -39,14 +39,14 @@ export class DomService {
     document.getElementsByTagName('body')[0].appendChild(childDomElem);
   }
 
-  public removeComponent() {
+  public removeComponent(): void {
     if (this.childComponentRef) {
       this.appRef.detachView(this.childComponentRef.hostView);
       this.childComponentRef.destroy();
     }
   }
 
-  private attachConfig(config, ComponentRef) {
+  private attachConfig(config, ComponentRef): void {
     let inputs = config.inputs;
     let outputs = config.outputs;
 

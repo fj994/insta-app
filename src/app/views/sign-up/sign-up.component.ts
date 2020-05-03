@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
     this.initForm();
   }
 
-  initForm() {
+  initForm(): void {
     this.signInForm = new FormGroup({
       'username': new FormControl(null, [Validators.required]),
       password: new FormControl(null, Validators.required),
@@ -33,7 +33,7 @@ export class SignUpComponent implements OnInit {
     })
   }
 
-  signup({ value }) {
+  signup({ value }): void {
     if (value.username && value.password && value.confirmPassword) {
       value.username = value.username.trim();
       value.password = value.password.trim();
@@ -54,7 +54,6 @@ export class SignUpComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       response => {
-        console.log(response);
         this.modalService.initDialogModal({ message: response.error.message });
       }
     );

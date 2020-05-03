@@ -13,11 +13,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  onUploadImageClick() {
+  onUploadImageClick(): void {
     this.modalService.initUploadImageModal({});
   }
 
-  onLogoutclick() {
+  onLogoutclick(): void {
     this.auth.logout();
   }
 }
