@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
 
   onProfileImgInputChange(event): void {
     this.dataStorage.uploadProfileImage(event.target.files[0]).subscribe(res => {
-      this.profile.profileImage = `${this.dataStorage.apiPath}/static/${res.image}`;
+      this.profile.profileImage = res.image;
     });
   }
 

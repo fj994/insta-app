@@ -1,6 +1,6 @@
 <div class="overlay" (click)="cancel()"></div>
 <div class="upload-modal">
-    <form [formGroup]="uploadForm" (ngSubmit)="onFormSubmit(uploadForm, fileInput)">
+    <form [formGroup]="uploadForm" (ngSubmit)="onFormSubmit(uploadForm)">
         <div class="upload-modal__header">
             <input #fileInput type="file" accept="image/*" (change)="onFileInputChange($event)"
                 style="visibility: hidden; position: absolute;">

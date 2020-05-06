@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiPath: 'http://localhost:3000'
+  apiPath: 'https://microgram-276015.oa.r.appspot.com'
 };
 
 /*

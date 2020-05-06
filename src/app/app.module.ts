@@ -34,7 +34,10 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignUpComponent },
   { path: '**', redirectTo: '' }
 ]
-
+export function getToken() {
+  return JSON.parse(localStorage.getItem('userData')) !== null ?
+  JSON.parse(localStorage.getItem('userData'))._token : null;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,11 +60,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () =>
-          JSON.parse(localStorage.getItem('userData')) !== null ?
-            JSON.parse(localStorage.getItem('userData'))._token : null,
-        blacklistedRoutes: ['localhost:3000/login', 'localhost:3000/signup'],
-        whitelistedDomains: ['localhost:3000']
+        tokenGetter: getToken,
+        blacklistedRoutes: [],
+        whitelistedDomains: ['microgram-276015.oa.r.appspot.com']
       }
     }),
     AutosizeModule,

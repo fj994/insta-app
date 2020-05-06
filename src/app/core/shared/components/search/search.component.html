@@ -13,7 +13,7 @@
                 *ngFor="let user of users">
                 <img class="thumbnail thumbnail--small" src='{{user.profile_image_path}}' alt="">
                 <span class="search__items-name">
-                    {{user.username}}
+                    {{user.username | titlecase}}
                 </span>
             </a>
         </ng-container>

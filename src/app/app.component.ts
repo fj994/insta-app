@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { authService } from './core/auth/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +8,9 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   title = 'instagram-app';
-  
-  constructor(private authService: authService, private router: Router) {}
+  loggedIn: boolean;
+
+  constructor(private authService: authService) {}
 
   ngOnInit() {
     this.authService.autoLogin();

@@ -18,25 +18,17 @@ export class DataStorageService {
   constructor(private http: HttpClient, private authService: authService) { }
 
   getProfile(id): Observable<any> {
-    return this.http.get<Profile | any>(`${this.apiPath}/profile/${id}`).pipe(map(res => {
-      res.profile.profileImage = `${this.apiPath}/static/${res.profile.profileImage}`;
-      res.profile.posts = [...res.profile.posts.map(post => `${this.apiPath}/static/${post}`)];
-      return res;
-    }));
+    return this.http.get<Profile | any>(`${this.apiPath}/profile/${id}`);
   }
 
   getMoreProfileImages(next, profileId): Observable<{posts: string[], next: string}> {
     const params = new HttpParams().set('next', next).set('profile_id', profileId);
-    return this.http.get<{posts: string[], next: string}>(`${this.apiPath}/profile-images`, { params }).pipe(
-      map(res => {
-        res.posts = res.posts.map(post => `${this.apiPath}/static/${post}`);
-        return res;
-      }));
+    return this.http.get<{posts: string[], next: string}>(`${this.apiPath}/profile-images`, { params });
   }
 
   uploadPost(formValues): Observable<Post> {
     let uploadData = new FormData();
-    uploadData.append('file', formValues.image);
+    uploadData.append('image', formValues.image);
     uploadData.append('caption', formValues.caption);
     uploadData.append('hashtags', formValues.hashtags);
     uploadData.append('location', formValues.location);
@@ -44,12 +36,12 @@ export class DataStorageService {
     return this.http.post<{ image: string, post_id, profile_image_path }>(`${this.apiPath}/post/upload`, uploadData).pipe(map(res => {
       return {
         post_id: res.post_id,
-        image_path: `${this.apiPath}/static/${res.image}`,
+        image_path: res.image,
         hashtags: [...new Set<string>(formValues.hashtags)],
         caption: formValues.caption,
         comments: [],
         likes: [],
-        profile_image_path: `${this.apiPath}/static/${res.profile_image_path}`,
+        profile_image_path: res.profile_image_path,
         user_id: this.authService.getUserId(),
         username: this.authService.user.value.username,
         location: formValues.location
@@ -59,7 +51,7 @@ export class DataStorageService {
 
   uploadProfileImage(file): Observable<{ image: string }> {
     let uploadData = new FormData();
-    uploadData.append('file', file);
+    uploadData.append('image', file);
 
     return this.http.post<{ image: string }>(`${this.apiPath}/uploadProfile`, uploadData);
   }
@@ -73,8 +65,8 @@ export class DataStorageService {
       console.log(posts);
 
       posts.map(post => {
-        post.profile_image_path = `${this.apiPath}/static/${post.profile_image_path}`;
-        post.image_path = `${this.apiPath}/static/${post.image_path}`;
+        post.profile_image_path = post.profile_image_path;
+        post.image_path = post.image_path;
         post.caption = post.caption === 'null' ? null : post.caption;
         post.location = post.location === 'null' ? '' : post.location;
       });
@@ -118,7 +110,7 @@ export class DataStorageService {
 
   getSearchUserResults(params): Observable<{ users: [{ profile_image_path }] }> {
     return this.http.get<{ users: [{ profile_image_path }] }>(`${this.apiPath}/search-users`, { params }).pipe(map(users => {
-      users.users.map(user => user.profile_image_path = `${this.apiPath}/static/${user.profile_image_path}`);
+      users.users.map(user => user.profile_image_path = user.profile_image_path);
       return users;
     }));
   }
