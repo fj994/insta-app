@@ -34,10 +34,12 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignUpComponent },
   { path: '**', redirectTo: '' }
 ]
+
 export function getToken() {
   return JSON.parse(localStorage.getItem('userData')) !== null ?
   JSON.parse(localStorage.getItem('userData'))._token : null;
 }
+
 @NgModule({
   declarations: [
     AppComponent,

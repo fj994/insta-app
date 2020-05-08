@@ -44,7 +44,6 @@ export class NewsFeedComponent implements OnInit {
   }
 
   onScroll(): void {
-    console.log('scrolled');
     this.dataStorage.getPosts(this.posts[this.posts.length - 1].post_id, this.hashtag).subscribe(posts => {
       this.posts.push(...posts);
     });

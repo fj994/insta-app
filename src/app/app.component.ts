@@ -14,5 +14,11 @@ export class AppComponent implements OnInit{
 
   ngOnInit() {
     this.authService.autoLogin();
+
+    this.authService.user.subscribe(
+      user => {
+        this.loggedIn = !!user;
+      }
+    );
   }
 }

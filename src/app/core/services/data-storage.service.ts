@@ -62,8 +62,6 @@ export class DataStorageService {
       .set('hashtag', hashtag ? hashtag : null);
 
     return this.http.get<Post[]>(`${this.apiPath}/posts`, { params }).pipe(map(posts => {
-      console.log(posts);
-
       posts.map(post => {
         post.profile_image_path = post.profile_image_path;
         post.image_path = post.image_path;
