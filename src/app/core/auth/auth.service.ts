@@ -67,12 +67,10 @@ export class authService {
 
     this.user.next(new User(payload.username, payload.id, token, refreshToken));
     this.storeUserData(this.user.value);
-    localStorage.setItem('refreshToken', refreshToken);
   }
 
-  isLoggedIn(): boolean {
-    const token = localStorage.getItem('authToken');
-    return !this.jwt.isTokenExpired(token);
+  isLoggedIn(): boolean {    
+    return !!JSON.parse(localStorage.getItem('userData'));
   }
 
   isTokenExpired(): boolean {
