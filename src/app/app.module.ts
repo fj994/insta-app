@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -24,16 +23,7 @@ import { DialogModalComponent } from './core/shared/modals/dialog-modal/dialog-m
 import { EditProfileModalComponent } from './core/shared/modals/edit-profile-modal/edit-profile-modal.component';
 import { ModalService } from './core/shared/modals/modal.service';
 import { AutoClosingDialogModalComponent } from './core/shared/modals/auto-closing-dialog-modal/auto-closing-dialog-modal.component';
-
-const appRoutes: Routes = [
-  { path: '', component: NewsFeedComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'hashtag/:hashtag', component: NewsFeedComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignUpComponent },
-  { path: '**', redirectTo: '' }
-]
+import { AppRoutingModule } from './app-routing.module';
 
 export function getToken() {
   return JSON.parse(localStorage.getItem('userData')) !== null ?
@@ -59,7 +49,7 @@ export function getToken() {
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
