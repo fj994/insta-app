@@ -54,7 +54,7 @@ export function getToken() {
       config: {
         tokenGetter: getToken,
         blacklistedRoutes: [],
-        whitelistedDomains: ['microgram-276015.oa.r.appspot.com']
+        whitelistedDomains: ['microgram-283416.uc.r.appspot.com']
       }
     }),
     AutosizeModule,
